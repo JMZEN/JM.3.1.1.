@@ -32,7 +32,7 @@ public class AdminController {
     @GetMapping("/list")
     public ModelAndView listUsers() {
         List<User> userList = userService.getUsers();
-        return new ModelAndView("admindirectory/users-table", "usersForTable", userList);
+        return new ModelAndView("pages/admindirectory/users-table", "usersForTable", userList);
     }
 
     @UserViewProfilePermission
@@ -40,7 +40,7 @@ public class AdminController {
     public ModelAndView getUserProfile(@RequestParam("userId") Long userId) {
         User detailUser = userService.getUserById(userId);
         Collection<String> roles = detailUser.getRolesAsStrings();
-        ModelAndView modelAndView = new ModelAndView("userdirectory/user-page");
+        ModelAndView modelAndView = new ModelAndView("pages/userdirectory/user-page");
         modelAndView.addObject("user", detailUser);
         modelAndView.addObject("userRoles", roles);
         return modelAndView;
@@ -50,7 +50,7 @@ public class AdminController {
     @GetMapping("/add")
     public ModelAndView addUser() {
         User detailUser = new User();
-        ModelAndView modelAndView = new ModelAndView("admindirectory/user-form");
+        ModelAndView modelAndView = new ModelAndView("pages/admindirectory/user-form");
         modelAndView.addObject("user", detailUser);
         modelAndView.addObject("allRoles", roleManager.getStringRoles());
         return modelAndView;
@@ -70,7 +70,7 @@ public class AdminController {
     @GetMapping("/update")
     public ModelAndView showFormForUpdate(@RequestParam("userId") Long userId) {
         User detailUser = userService.getUserById(userId);
-        ModelAndView modelAndView = new ModelAndView("admindirectory/user-update");
+        ModelAndView modelAndView = new ModelAndView("pages/admindirectory/user-update");
         modelAndView.addObject("userId", userId);
         modelAndView.addObject("username", detailUser.getUsername());
         modelAndView.addObject("allRoles", roleManager.getStringRoles());
@@ -92,7 +92,7 @@ public class AdminController {
     @UserUpdatePermission
     @GetMapping("/updatepass")
     public ModelAndView updatePassword(@RequestParam("userId") Long userId) {
-        ModelAndView modelAndView = new ModelAndView("admindirectory/user-change-pass");
+        ModelAndView modelAndView = new ModelAndView("pages/admindirectory/user-change-pass");
         modelAndView.addObject("userId", userId);
         return modelAndView;
     }

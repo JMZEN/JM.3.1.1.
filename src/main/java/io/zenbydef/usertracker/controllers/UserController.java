@@ -24,6 +24,6 @@ public class UserController {
     @GetMapping("/user")
     public ModelAndView indexPage(Principal principal) {
         User user = userService.findUserByName(principal.getName());
-        return new ModelAndView("userdirectory/user-page", "user", user);
+        return new ModelAndView("pages/userdirectory/user-page", "user", user);
     }
 }
