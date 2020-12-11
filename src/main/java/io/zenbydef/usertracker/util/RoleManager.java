@@ -1,11 +1,13 @@
 package io.zenbydef.usertracker.util;
 
-import io.zenbydef.usertracker.entities.Role;
-import io.zenbydef.usertracker.service.roleservice.RoleService;
+import io.zenbydef.usertracker.io.entities.oldpack.Role;
+import io.zenbydef.usertracker.service.oldpack.roleservice.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,7 +35,7 @@ public class RoleManager {
     public List<Role> convertRoles(String[] roles) {
         return Arrays.stream(roles)
                 .filter(roleName -> !roleName.equals(""))
-                .map(s -> getRole(s))
+                .map(this::getRole)
                 .collect(Collectors.toList());
     }
 
