@@ -2,6 +2,7 @@ package io.zenbydef.usertracker.security.config;
 
 import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
 import io.zenbydef.usertracker.service.oldpack.roleservice.userservice.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -17,15 +18,12 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserService userService;
-    private final UserDtoService userDtoService;
+
+    @Autowired
+    private UserDtoService userDtoService;
     private final AuthenticationSuccessHandler successHandler;
 
-    public SecurityConfig(UserService userService,
-                          UserDtoService userDtoService,
-                          AuthenticationSuccessHandler successHandler) {
-        this.userService = userService;
-        this.userDtoService = userDtoService;
+    public SecurityConfig(AuthenticationSuccessHandler successHandler) {
         this.successHandler = successHandler;
     }
 
