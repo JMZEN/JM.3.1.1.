@@ -118,7 +118,9 @@ public class UserDtoServiceImpl implements UserDtoService {
             throw new RuntimeException("User is not found");
         }
 
-//        foundUserEntityForUpdate.setEncryptedPassword(userDto.getEncryptedPassword());
+        if (userDto.getPassword() != null) {
+            foundUserEntityForUpdate.setEncryptedPassword(encoder.encode(userDto.getPassword()));
+        }
         foundUserEntityForUpdate.setFirstName(userDto.getFirstName());
         foundUserEntityForUpdate.setLastName(userDto.getLastName());
         foundUserEntityForUpdate.setAge(userDto.getAge());
