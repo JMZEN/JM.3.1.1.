@@ -1,11 +1,10 @@
 package io.zenbydef.usertracker.ui.models.request;
 
-import io.zenbydef.usertracker.ui.models.response.RoleRest;
-
 import java.util.List;
 
 public class UserDetailsRequestModel {
     private String email;
+    private String password;
     private String firstName;
     private String lastName;
     private int age;
@@ -17,6 +16,14 @@ public class UserDetailsRequestModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {

@@ -5,7 +5,7 @@ import io.zenbydef.usertracker.io.entities.UserEntity;
 import io.zenbydef.usertracker.io.repositories.UserDtoRepository;
 import io.zenbydef.usertracker.io.shared.RoleDto;
 import io.zenbydef.usertracker.io.shared.UserDto;
-import io.zenbydef.usertracker.service.RoleDtoService;
+import io.zenbydef.usertracker.service.roledtoservice.RoleDtoService;
 import io.zenbydef.usertracker.util.IdGenerator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +14,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserDtoServiceImpl implements UserDtoService {
     private final UserDtoRepository userDtoRepository;
     private final RoleDtoService roleDtoService;

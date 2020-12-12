@@ -1,19 +1,18 @@
-package io.zenbydef.usertracker.service;
+package io.zenbydef.usertracker.service.roledtoservice;
 
 import io.zenbydef.usertracker.io.entities.RoleEntity;
-import io.zenbydef.usertracker.io.entities.oldpack.Role;
 import io.zenbydef.usertracker.io.repositories.RoleDtoRepository;
 import io.zenbydef.usertracker.io.shared.RoleDto;
-import io.zenbydef.usertracker.io.shared.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class RoleDtoServiceImpl implements RoleDtoService {
     private final RoleDtoRepository roleDtoRepository;
     private static final ModelMapper modelMapper = new ModelMapper();

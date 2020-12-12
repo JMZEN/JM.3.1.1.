@@ -2,8 +2,7 @@ package io.zenbydef.usertracker.io.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 @Entity(name = "roles")
 public class RoleEntity implements Serializable {
@@ -17,13 +16,10 @@ public class RoleEntity implements Serializable {
     private String nameOfRole;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<UserEntity> users;
+    private List<UserEntity> users;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "roles_privileges",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "privilege_id"))
-    private Collection<Privilege> privileges;
+    private List<Privilege> privileges;
 
     public Long getId() {
         return id;
@@ -41,19 +37,19 @@ public class RoleEntity implements Serializable {
         this.nameOfRole = nameOfRole;
     }
 
-    public Set<UserEntity> getUsers() {
+    public List<UserEntity> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<UserEntity> users) {
+    public void setUsers(List<UserEntity> users) {
         this.users = users;
     }
 
-    public Collection<Privilege> getPrivileges() {
+    public List<Privilege> getPrivileges() {
         return privileges;
     }
 
-    public void setPrivileges(Collection<Privilege> privileges) {
+    public void setPrivileges(List<Privilege> privileges) {
         this.privileges = privileges;
     }
 }

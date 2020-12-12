@@ -1,13 +1,11 @@
 package io.zenbydef.usertracker.io.entities;
 
-import io.zenbydef.usertracker.io.entities.oldpack.Role;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity(name = "users")
@@ -15,10 +13,11 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 2L;
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String userId;
 
     @Column(nullable = false, length = 120, unique = true)
@@ -40,9 +39,6 @@ public class UserEntity implements Serializable {
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE})
-//    @JoinTable(name = "users_roles",
-//            joinColumns = @JoinColumn(name = "security_user_id", referencedColumnName = "security_user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private List<RoleEntity> roles;
 
     @Transient

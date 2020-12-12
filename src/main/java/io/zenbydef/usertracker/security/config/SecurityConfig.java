@@ -1,7 +1,6 @@
 package io.zenbydef.usertracker.security.config;
 
 import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
-import io.zenbydef.usertracker.service.oldpack.roleservice.userservice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,20 +43,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
-                .formLogin(loginConfigurer ->
-                        loginConfigurer
-                                .loginPage("/login")
-                                .permitAll()
-                                .loginProcessingUrl("/doLogin")
-                                .successHandler(successHandler))
-                .logout(logoutConfigurer ->
-                        logoutConfigurer
-                                .permitAll()
-                                .logoutUrl("/logout"))
-                .csrf().disable()
-                .exceptionHandling().accessDeniedPage("/denied");
+                .csrf().disable();
     }
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin(loginConfigurer ->
+//                        loginConfigurer
+//                                .loginPage("/login")
+//                                .permitAll()
+//                                .loginProcessingUrl("/doLogin")
+//                                .successHandler(successHandler))
+//                .logout(logoutConfigurer ->
+//                        logoutConfigurer
+//                                .permitAll()
+//                                .logoutUrl("/logout"))
+//                .csrf().disable()
+//                .exceptionHandling().accessDeniedPage("/denied");
+//    }
 }
 

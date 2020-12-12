@@ -1,6 +1,5 @@
-package io.zenbydef.usertracker.service;
+package io.zenbydef.usertracker.service.roledtoservice;
 
-import io.zenbydef.usertracker.io.entities.oldpack.Role;
 import io.zenbydef.usertracker.io.shared.RoleDto;
 
 import java.util.List;

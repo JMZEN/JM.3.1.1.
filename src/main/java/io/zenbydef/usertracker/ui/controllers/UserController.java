@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-@RestController
-@RequestMapping
-public class UserController {
-    private final UserDtoService userDtoService;
-    private static final ModelMapper modelMapper = new ModelMapper();
-
-    public UserController(UserDtoService userService) {
-        this.userDtoService = userService;
-    }
-
-    @UserViewProfilePermission
-    @GetMapping("/user")
-    public UserRest indexPage(Principal principal) {
-        UserDto foundUserDto = userDtoService.findUserByName(principal.getName());
-        return modelMapper.map(foundUserDto, UserRest.class);
-    }
-}
+//@RestController
+//@RequestMapping
+//public class UserController {
+//    private final UserDtoService userDtoService;
+//    private static final ModelMapper modelMapper = new ModelMapper();
+//
+//    public UserController(UserDtoService userService) {
+//        this.userDtoService = userService;
+//    }
+//
+//    @UserViewProfilePermission
+//    @GetMapping("/user")
+//    public UserRest indexPage(Principal principal) {
+//        UserDto foundUserDto = userDtoService.findUserByName(principal.getName());
+//        return modelMapper.map(foundUserDto, UserRest.class);
+//    }
+//}

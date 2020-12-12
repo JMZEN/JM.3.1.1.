@@ -6,7 +6,6 @@ import io.zenbydef.usertracker.io.entities.UserEntity;
 import io.zenbydef.usertracker.io.repositories.UserDtoRepository;
 import io.zenbydef.usertracker.io.shared.RoleDto;
 import io.zenbydef.usertracker.io.shared.UserDto;
-import io.zenbydef.usertracker.service.RoleDtoService;
 import io.zenbydef.usertracker.service.userdtoservice.UserDtoServiceImpl;
 import io.zenbydef.usertracker.util.IdGenerator;
 import org.junit.jupiter.api.DisplayName;

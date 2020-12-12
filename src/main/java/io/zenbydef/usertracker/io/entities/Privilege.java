@@ -1,10 +1,10 @@
 package io.zenbydef.usertracker.io.entities;
 
-import io.zenbydef.usertracker.io.entities.oldpack.Role;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 
 @Entity
@@ -19,7 +19,7 @@ public class Privilege implements GrantedAuthority {
     private String nameOfPrivilege;
 
     @ManyToMany(mappedBy = "privileges", fetch = FetchType.LAZY)
-    private Collection<Role> roles;
+    private List<RoleEntity> roles;
 
     public Privilege() {
     }
@@ -44,11 +44,11 @@ public class Privilege implements GrantedAuthority {
         this.nameOfPrivilege = nameOfPrivilege;
     }
 
-    public Collection<Role> getRoles() {
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
     }
 

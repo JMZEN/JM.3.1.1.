@@ -1,10 +1,8 @@
 package io.zenbydef.usertracker.io.shared;
 
-import io.zenbydef.usertracker.io.entities.oldpack.Role;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 public class UserDto implements Serializable {
