@@ -47,6 +47,16 @@ public class AdmUserController {
         return modelMapper.map(userDto, UserRest.class);
     }
 
+    @PutMapping(path = "/{userId}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public UserRest updateUser(@PathVariable String userId,
+                               @RequestBody UserDetailsRequestModel userDetails) {
+        UserDto convertedUser = modelMapper.map(userDetails, UserDto.class);
+        UserDto userForUpdate = userDtoService.updateUser(userId, convertedUser);
+        return modelMapper.map(userForUpdate, UserRest.class);
+    }
+
     @DeleteMapping(path = "/{userId}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<?> deleteUser(@PathVariable String userId) {

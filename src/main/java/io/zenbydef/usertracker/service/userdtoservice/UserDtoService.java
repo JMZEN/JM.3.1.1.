@@ -6,13 +6,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface UserDtoService extends UserDetailsService {
+    UserDto createUser(UserDto user);
+
     UserDto findUserByName(String userName);
 
     UserDto findUserByUserId(String userId);
 
     List<UserDto> findUsers();
 
-    UserDto createUser(UserDto user);
+    UserDto updateUser(String userId, UserDto userDto);
 
     void deleteUser(String userId);
 }

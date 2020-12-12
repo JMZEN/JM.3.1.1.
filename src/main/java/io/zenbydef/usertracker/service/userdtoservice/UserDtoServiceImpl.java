@@ -47,34 +47,6 @@ public class UserDtoServiceImpl implements UserDtoService {
     }
 
     @Override
-    public UserDto findUserByName(String userName) {
-        UserEntity foundUserEntity = userDtoRepository.findUserByEmail(userName);
-        if (foundUserEntity == null) {
-            throw new NullPointerException(String.format("User with username %s not found", userName));
-        }
-
-        return modelMapper.map(foundUserEntity, UserDto.class);
-    }
-
-    @Override
-    public UserDto findUserByUserId(String userId) {
-        UserEntity foundUserEntity = userDtoRepository.findUserByUserId(userId);
-        if (foundUserEntity == null) {
-            throw new NullPointerException(String.format("User with userId %s not found", userId));
-        }
-
-        return modelMapper.map(foundUserEntity, UserDto.class);
-    }
-
-    @Override
-    public List<UserDto> findUsers() {
-        List<UserEntity> foundUserEntities = userDtoRepository.findAll();
-        return foundUserEntities.stream()
-                .map(userEntity -> modelMapper.map(userEntity, UserDto.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public UserDto createUser(UserDto user) {
         if (userDtoRepository.findUserByEmail(user.getEmail()) != null) {
             throw new RuntimeException("Record already exists");
@@ -97,10 +69,9 @@ public class UserDtoServiceImpl implements UserDtoService {
     }
 
     private List<RoleDto> getRoleDistinctRolesForUserDto(Collection<RoleDto> roles) {
-        List<RoleDto> list = roles.stream()
+        return roles.stream()
                 .map(roleDto -> getDistinctRole(roleDto.getNameOfRole()))
                 .collect(Collectors.toList());
-        return list;
     }
 
     private RoleDto getDistinctRole(String s) {
@@ -111,6 +82,49 @@ public class UserDtoServiceImpl implements UserDtoService {
             }
         }
         return Objects.requireNonNull(roleToFind);
+    }
+
+    @Override
+    public UserDto findUserByName(String userName) {
+        UserEntity foundUserEntity = userDtoRepository.findUserByEmail(userName);
+        if (foundUserEntity == null) {
+            throw new NullPointerException(String.format("User with username %s not found", userName));
+        }
+        return modelMapper.map(foundUserEntity, UserDto.class);
+    }
+
+    @Override
+    public UserDto findUserByUserId(String userId) {
+        UserEntity foundUserEntity = userDtoRepository.findUserByUserId(userId);
+        if (foundUserEntity == null) {
+            throw new NullPointerException(String.format("User with userId %s not found", userId));
+        }
+
+        return modelMapper.map(foundUserEntity, UserDto.class);
+    }
+
+    @Override
+    public List<UserDto> findUsers() {
+        List<UserEntity> foundUserEntities = userDtoRepository.findAll();
+        return foundUserEntities.stream()
+                .map(userEntity -> modelMapper.map(userEntity, UserDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto updateUser(String userId, UserDto userDto) {
+        UserEntity foundUserEntityForUpdate = userDtoRepository.findUserByUserId(userId);
+        if (foundUserEntityForUpdate == null) {
+            throw new RuntimeException("User is not found");
+        }
+
+//        foundUserEntityForUpdate.setEncryptedPassword(userDto.getEncryptedPassword());
+        foundUserEntityForUpdate.setFirstName(userDto.getFirstName());
+        foundUserEntityForUpdate.setLastName(userDto.getLastName());
+        foundUserEntityForUpdate.setAge(userDto.getAge());
+//        foundUserEntityForUpdate.setRoles(convertRoleDtoToRoleEntity(userDto.getRoles()));
+        UserEntity savedUser = userDtoRepository.save(foundUserEntityForUpdate);
+        return modelMapper.map(savedUser, UserDto.class);
     }
 
     @Override
