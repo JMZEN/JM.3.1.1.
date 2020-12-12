@@ -122,7 +122,7 @@ public class UserDtoServiceImpl implements UserDtoService {
         foundUserEntityForUpdate.setFirstName(userDto.getFirstName());
         foundUserEntityForUpdate.setLastName(userDto.getLastName());
         foundUserEntityForUpdate.setAge(userDto.getAge());
-//        foundUserEntityForUpdate.setRoles(convertRoleDtoToRoleEntity(userDto.getRoles()));
+        foundUserEntityForUpdate.setRoles(convertRoleDtoToRoleEntity(userDto.getRoles()));
         UserEntity savedUser = userDtoRepository.save(foundUserEntityForUpdate);
         return modelMapper.map(savedUser, UserDto.class);
     }
