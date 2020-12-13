@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private UserDtoService userDtoService;
     private final AuthenticationSuccessHandler successHandler;
 
@@ -56,6 +55,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 logoutConfigurer
                         .permitAll()
                         .logoutUrl("/logout"));
+    }
+
+    @Autowired
+    public void setUserDtoService(UserDtoService userDtoService) {
+        this.userDtoService = userDtoService;
     }
 }
 
