@@ -22,7 +22,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         List<GrantedAuthority> authorityList = new ArrayList<>(authorities);
         for (GrantedAuthority grantedAuthority : authorityList) {
             httpServletResponse.sendRedirect(grantedAuthority.getAuthority()
-                    .equals("user.view.profile") ? "/user" : "/admin/users");
+                    .equals("user.view.profile") ? "/user" : "/admin");
             break;
         }
     }
