@@ -1,8 +1,9 @@
 package io.zenbydef.usertracker.ui.models.response;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UserRest {
+public class UserRest implements Serializable {
     private String userId;
     private String email;
     private String firstName;

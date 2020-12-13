@@ -41,11 +41,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        http.formLogin()
+//                .successHandler(successHandler)
+//                .loginPage("/login")
+//////                .successHandler(new LoginSuccessHandler())
+////                .loginProcessingUrl("/login")
+//                .usernameParameter("email")
+//                .passwordParameter("password")
+//                .permitAll();
+
+//        http
+//                .authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and()
+//                .csrf().disable();
+
         http
                 .authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable();
+
+        http.logout(logoutConfigurer ->
+                logoutConfigurer
+                        .permitAll()
+                        .logoutUrl("/logout"));
+
     }
 
 //    @Override

@@ -1,12 +1,8 @@
 package io.zenbydef.usertracker.ui.models.response;
 
-import io.zenbydef.usertracker.io.entities.Privilege;
-import io.zenbydef.usertracker.io.shared.UserDto;
+import java.io.Serializable;
 
-import java.util.List;
-import java.util.Set;
-
-public class RoleRest {
+public class RoleRest implements Serializable {
 
     private String nameOfRole;
 
