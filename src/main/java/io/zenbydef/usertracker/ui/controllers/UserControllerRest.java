@@ -3,11 +3,10 @@ package io.zenbydef.usertracker.ui.controllers;
 import io.zenbydef.usertracker.io.shared.UserDto;
 import io.zenbydef.usertracker.security.annotations.*;
 import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
-import io.zenbydef.usertracker.ui.models.request.UserDetailsRequestModel;
+import io.zenbydef.usertracker.ui.models.request.operstions.UserDetailsRequestModel;
 import io.zenbydef.usertracker.ui.models.response.UserRest;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

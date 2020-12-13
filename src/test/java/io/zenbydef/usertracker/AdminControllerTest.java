@@ -5,8 +5,8 @@
 //import io.zenbydef.usertracker.io.shared.UserDto;
 //import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
 //import io.zenbydef.usertracker.ui.controllers.AdminController;
-//import io.zenbydef.usertracker.ui.models.request.RoleRequestModel;
-//import io.zenbydef.usertracker.ui.models.request.UserDetailsRequestModel;
+//import io.zenbydef.usertracker.ui.models.request.operstions.RoleRequestModel;
+//import io.zenbydef.usertracker.ui.models.request.operstions.UserDetailsRequestModel;
 //import io.zenbydef.usertracker.ui.models.response.RoleRest;
 //import io.zenbydef.usertracker.ui.models.response.UserRest;
 //import org.junit.jupiter.api.DisplayName;

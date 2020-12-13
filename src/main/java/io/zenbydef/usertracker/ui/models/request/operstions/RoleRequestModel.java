@@ -1,4 +1,4 @@
-package io.zenbydef.usertracker.ui.models.request;
+package io.zenbydef.usertracker.ui.models.request.operstions;
 
 public class RoleRequestModel {
     private String nameOfRole;
