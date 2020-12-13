@@ -99,7 +99,6 @@ public class UserDtoServiceImpl implements UserDtoService {
         if (foundUserEntity == null) {
             throw new NullPointerException(String.format("User with userId %s not found", userId));
         }
-
         return modelMapper.map(foundUserEntity, UserDto.class);
     }
 
@@ -114,19 +113,26 @@ public class UserDtoServiceImpl implements UserDtoService {
     @Override
     public UserDto updateUser(String userId, UserDto userDto) {
         UserEntity foundUserEntityForUpdate = userDtoRepository.findUserByUserId(userId);
-        if (foundUserEntityForUpdate == null) {
-            throw new RuntimeException("User is not found");
-        }
-
-        if (userDto.getPassword() != null) {
-            foundUserEntityForUpdate.setEncryptedPassword(encoder.encode(userDto.getPassword()));
-        }
+        uniqueUserCheck(foundUserEntityForUpdate);
+        createNewEncryptedPassword(userDto, foundUserEntityForUpdate);
         foundUserEntityForUpdate.setFirstName(userDto.getFirstName());
         foundUserEntityForUpdate.setLastName(userDto.getLastName());
         foundUserEntityForUpdate.setAge(userDto.getAge());
         foundUserEntityForUpdate.setRoles(convertRoleDtoToRoleEntity(userDto.getRoles()));
         UserEntity savedUser = userDtoRepository.save(foundUserEntityForUpdate);
         return modelMapper.map(savedUser, UserDto.class);
+    }
+
+    private void createNewEncryptedPassword(UserDto userDto, UserEntity foundUserEntityForUpdate) {
+        if (userDto.getPassword() != null) {
+            foundUserEntityForUpdate.setEncryptedPassword(encoder.encode(userDto.getPassword()));
+        }
+    }
+
+    private void uniqueUserCheck(UserEntity foundUserEntityForUpdate) {
+        if (foundUserEntityForUpdate == null) {
+            throw new RuntimeException("User is not found");
+        }
     }
 
     @Override

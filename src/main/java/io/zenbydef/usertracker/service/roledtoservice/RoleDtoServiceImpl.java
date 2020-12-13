@@ -28,15 +28,4 @@ public class RoleDtoServiceImpl implements RoleDtoService {
                 .map(roleEntity -> modelMapper.map(roleEntity, RoleDto.class))
                 .collect(Collectors.toList());
     }
-
-    @Override
-    public RoleDto getDistinctRole(String s) {
-        RoleDto roleToFind = null;
-        for (RoleDto role : getRoles()) {
-            if (s.equalsIgnoreCase(role.getNameOfRole())) {
-                roleToFind = role;
-            }
-        }
-        return Objects.requireNonNull(roleToFind);
-    }
 }

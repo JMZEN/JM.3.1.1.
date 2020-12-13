@@ -17,12 +17,16 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private UserDtoService userDtoService;
     private final AuthenticationSuccessHandler successHandler;
 
     public SecurityConfig(AuthenticationSuccessHandler successHandler) {
         this.successHandler = successHandler;
+    }
+
+    @Autowired
+    public void setUserDtoService(UserDtoService userDtoService) {
+        this.userDtoService = userDtoService;
     }
 
     @Bean
@@ -51,15 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable();
 
-        http.logout(logoutConfigurer ->
-                logoutConfigurer
-                        .permitAll()
-                        .logoutUrl("/logout"));
-    }
-
-    @Autowired
-    public void setUserDtoService(UserDtoService userDtoService) {
-        this.userDtoService = userDtoService;
+        http.logout()
+                .logoutUrl("/logout")
+                .permitAll();
     }
 }
 

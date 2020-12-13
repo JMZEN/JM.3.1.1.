@@ -6,6 +6,4 @@ import java.util.List;
 
 public interface RoleDtoService {
     List<RoleDto> getRoles();
-
-    RoleDto getDistinctRole(String s);
 }
