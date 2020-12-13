@@ -32,7 +32,7 @@ public class UserControllerRest {
         return modelMapper.map(createdUser, UserRest.class);
     }
 
-    //    @UserListReadPermission
+    @UserListReadPermission
     @GetMapping(produces = "application/json")
     public List<UserRest> getAllUsers() {
         List<UserDto> userDtoList = userDtoService.findUsers();

@@ -42,51 +42,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-
-//                .loginPage("/login")
-////                .successHandler(new LoginSuccessHandler())
-//                .loginProcessingUrl("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler(successHandler)
                 .permitAll();
 
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
-
-//        http
-//                .authorizeRequests()
-//                .anyRequest().permitAll()
-//                .and()
-//                .csrf().disable();
 
         http.logout(logoutConfigurer ->
                 logoutConfigurer
                         .permitAll()
                         .logoutUrl("/logout"));
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin(loginConfigurer ->
-//                        loginConfigurer
-//                                .loginPage("/login")
-//                                .permitAll()
-//                                .loginProcessingUrl("/doLogin")
-//                                .successHandler(successHandler))
-//                .logout(logoutConfigurer ->
-//                        logoutConfigurer
-//                                .permitAll()
-//                                .logoutUrl("/logout"))
-//                .csrf().disable()
-//                .exceptionHandling().accessDeniedPage("/denied");
-//    }
 }
 
