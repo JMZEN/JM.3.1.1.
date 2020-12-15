@@ -8,8 +8,11 @@ import io.zenbydef.usertracker.ui.models.response.UserRest;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,10 +29,10 @@ public class UserControllerRest {
     @UserCreatePermission
     @PostMapping(consumes = "application/json",
             produces = "application/json")
-    public UserRest createUser(@RequestBody UserDetailsRequestModel requestModel) {
-        UserDto userDto = modelMapper.map(requestModel, UserDto.class);
-        UserDto createdUser = userDtoService.createUser(userDto);
-        return modelMapper.map(createdUser, UserRest.class);
+    public ResponseEntity<?> createUser(@RequestBody UserDetailsRequestModel requestModel) {
+        UserDto convertedUser = modelMapper.map(requestModel, UserDto.class);
+        UserDto createdUser = userDtoService.createUser(convertedUser);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @UserListReadPermission
@@ -49,15 +52,23 @@ public class UserControllerRest {
         return modelMapper.map(userDto, UserRest.class);
     }
 
+    @UserViewProfilePermission
+    @GetMapping(path = "/principal",
+            produces = "application/json")
+    public UserRest AuthenticateUser(@AuthenticationPrincipal User principal) {
+        UserDto userDto = userDtoService.findUserByName(principal.getUsername());
+        return modelMapper.map(userDto, UserRest.class);
+    }
+
     @UserUpdatePermission
     @PutMapping(path = "/{userId}",
             consumes = "application/json",
             produces = "application/json")
-    public UserRest updateUser(@PathVariable String userId,
+    public ResponseEntity<?> updateUser(@PathVariable String userId,
                                @RequestBody UserDetailsRequestModel userDetails) {
         UserDto convertedUser = modelMapper.map(userDetails, UserDto.class);
         UserDto userForUpdate = userDtoService.updateUser(userId, convertedUser);
-        return modelMapper.map(userForUpdate, UserRest.class);
+        return ResponseEntity.ok(userForUpdate);
     }
 
     @UserDeletePermission
@@ -65,6 +76,6 @@ public class UserControllerRest {
             produces = "application/json")
     public ResponseEntity<?> deleteUser(@PathVariable String userId) {
         userDtoService.deleteUser(userId);
-        return new ResponseEntity<>(String.format("User with %s", userId), HttpStatus.OK);
+        return ResponseEntity.noContent().build();
     }
 }

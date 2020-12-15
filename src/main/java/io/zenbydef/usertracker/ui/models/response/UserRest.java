@@ -2,6 +2,7 @@ package io.zenbydef.usertracker.ui.models.response;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserRest implements Serializable {
     private String userId;
@@ -10,6 +11,7 @@ public class UserRest implements Serializable {
     private String lastName;
     private int age;
     private List<RoleRest> roles;
+    private String rolesAsString = getRolesAsString();
 
     public String getUserId() {
         return userId;
@@ -57,5 +59,11 @@ public class UserRest implements Serializable {
 
     public void setRoles(List<RoleRest> roles) {
         this.roles = roles;
+    }
+
+    public String getRolesAsString() {
+        return roles != null ? roles.stream()
+                .map(RoleRest::getNameOfRole)
+                .collect(Collectors.joining()) : null;
     }
 }

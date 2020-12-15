@@ -10,4 +10,9 @@ public class UserControllerView {
     public ModelAndView mainAdminPage() {
         return new ModelAndView("admin");
     }
+
+    @RequestMapping(value = "user")
+    public ModelAndView mainUserPage() {
+        return new ModelAndView("user");
+    }
 }
