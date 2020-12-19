@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Hello user</title>
+
+    <script src="/static/getUser.js"></script>
+</head>
+
+<body>
+
+<style>
+    html, body {
+        height: 100%;
+    }
+</style>
+
+<div class="container-fluid d-flex h-100 flex-column">
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+        <span id="header" class="navbar-text col-md-10" style="color: white"></span>
+        <a class="text-white-50" href="#" th:href="@{/logout}">Logout</a>
+    </nav>
+    <div class="row pt-5 bg-light flex-fill d-flex justify-content-start">
+        <div class="col col-md-2 bg-white portlet-container portlet-dropzone">
+            <div class="d-inline-block"></div>
+            <ul class="nav nav-pills flex-column" id="tabsAdminUser">
+            </ul>
+        </div>
+
+        <div class="col col-md-10 portlet-container portlet-dropzone">
+            <div class="mt-3 d-inline-block" style="width: 100%">
+                <div class="tab-content" id="tabsContent">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

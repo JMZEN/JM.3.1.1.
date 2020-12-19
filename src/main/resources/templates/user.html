@@ -2,80 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>All users</title>
 </head>
-
 <body class="text-dark bg-light">
-
-<!-- Header -->
+<!--footer-->
 <div class="row bg-dark text-white p-2">
     <div class="col-md-6 text-left px-3 py-2">
-        <span id="header_username" class="font-weight-bold m-0 p-0"></span>
-
-        with roles:
-
-        <span id="header_user_roles" class="text-uppercase m-0 p-0"></span>
+        <span id="footerEmail" class="font-weight-bold m-0 p-0"></span> with roles: <span id="footerRoles" class="text-uppercase m-0 p-0"></span>
     </div>
-    <div class="col-md-6 text-right">
-        <a class="nav-link text-light" href="/logout">Logout</a>
-    </div>
+    <div class="col-md-6 text-right"><a class="nav-link text-light" href="/logout">Logout</a></div>
 </div>
-<!-- End Header -->
-
+<!--container-->
 <div class="container-fluid flex">
     <div class="row min-vh-100">
-
-        <!-- Vertical navbar -->
+        <!--    left panel-->
         <div class="col-md-2 p-0 pt-3 bg-white">
-            <div class="nav nav-pills flex-column" id="admin-navbar-tab">
-                <a href="/admin" class="nav-link">Admin</a>
-            </div>
-            <div class="nav nav-pills flex-column">
-                <a href="/user" class="nav-link active">User</a>
-            </div>
+            <ul class="nav nav-pills flex-column">
+                <li id="adminLinkPanel" class="nav-item">
+                    <a class="nav-link " href="/admin">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/user">User</a>
+                </li>
+            </ul>
         </div>
-        <!-- End vertical navbar -->
-
-        <!-- User Table -->
+        <!--        main -->
         <div class="col-md-10 px-4 py-3">
             <div class="container-fluid">
-                <h1 class="mb-3">User Information Page</h1>
+                <h1 class="mb-3">User information-page</h1>
                 <div class="tab-content">
-                    <div class="container-fluid tab-pane active">
-                        <h4 class="card-header">About user</h4>
-                        <div class="table-responsive card-body">
-                            <table class="table table-striped table-sm">
+                    <!--Users table TAB-->
+                    <div id="usersTable" class="container-fluid tab-pane active">
+                        <h4 class="m-2">About user</h4>
+                        <div class="container-fluid bg-white py-1">
+                            <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>User Id</th>
+                                    <th>ID</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
-                                    <th>Age</th>
+                                    <th>Department</th>
                                     <th>Email</th>
                                     <th>Role</th>
                                 </tr>
                                 </thead>
-                                <tbody id="user-table-info">
+                                <tbody id="mainTableBodyUser">
+<!--                                    Content User Table-->
                                 </tbody>
                             </table>
                         </div>
-                        <!--End User Table -->
                     </div>
                 </div>
             </div>
         </div>
-
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-                crossorigin="anonymous"></script>
-        <script type="text/javascript" src="header_username_roles.js"></script>
-        <script type="text/javascript" src="user_mainpage.js"></script>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="js/user.js"></script>
 </body>
 </html>
