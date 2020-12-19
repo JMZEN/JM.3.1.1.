@@ -12,11 +12,12 @@ function showAllUsers() {
                     <td id="idEdit">${user.userId}</td>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
-                    <td>${user.department}</td>
+                    <td>${user.age}</td>
                     <td>${user.email}</td>
-                    <td>${user.rolesToString}</td>
+                    <td>${user.rolesAsString}</td>
+                    
                     <td> 
-                        <button class="btn btn-info" onclick="showUpdateUser('${user.userId}')" 
+                        <button class="btn btn-info" onclick="func('${user.userId}')" 
                         type="button" data-toggle="modal" data-target=#modalEditView>Edit</button>
                     </td>
                     <td>

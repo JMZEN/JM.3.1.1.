@@ -8,8 +8,6 @@ function showDeleteUser(userId) {
             $('#userLastnameDelete').attr('value', `${user.lastName}`)
             $('#userAgeDelete').attr('value', `${user.age}`)
             $('#userEmailDelete').attr('value', `${user.email}`)
-            $('#userLoginDelete').attr('value', `${user.username}`)
-            $('#userPasswordDelete').attr('value', `${user.password}`)
             $('#userRoleDelete').attr('value', `${user.rolesToString}`)
             $('#btnDelete').attr('onclick', `deleteUser('${user.userId}')`)
         })

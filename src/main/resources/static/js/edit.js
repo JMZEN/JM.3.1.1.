@@ -1,4 +1,5 @@
-function showUpdateUser(userId) {
+function func(userId) {
+    console.log(userId)
     const userByIdURL = `rest/users/` + userId
     fetch(userByIdURL)
         .then(response => response.json())
@@ -9,35 +10,76 @@ function showUpdateUser(userId) {
             $('#userAgeEdit').attr('value', `${user.age}`)
             $('#userEmailEdit').attr('value', `${user.email}`)
             $('#editUserRole').attr('value', `${user.rolesToString}`)
-            $('#btnEdit').attr('onclick', `editUser('${user.userId}')`)
+
+            $('#btnEdit').attr('onclick', `editUser()`)
         })
 }
 
-function editUser(userId) {
-    const userByIdURL = `rest/users/` + userId
+function editUser() {
+    const editUserURL = 'http://localhost:8080/admin/add'
     $('#editUserRole').attr('value', [])
     console.log("editUser activated")
-    fetch(userByIdURL, {
+    fetch(editUserURL, {
         method: 'PUT',
         body: JSON.stringify({
-            email: $('#userEmailEdit').val(),
-            password: $('#userPasswordEdit').val(),
+            id: $('#userIdEdit').val(),
             firstName: $('#userNameEdit').val(),
             lastName: $('#userLastnameEdit').val(),
-            age: $('#userAgeEdit').val(),
+            department: $('#userDepartmentEdit').val(),
+            email: $('#userEmailEdit').val(),
+            username: $('#userLoginEdit').val(),
+            password: $('#userPasswordEdit').val(),
             roles: [
                 {
-                    nameOfRole: $('#newUserRole').val()[0]
+                    id: parseInt($('#editUserRole').val()[0])
                 }
             ]
         }),
         headers: {'Content-type': 'application/json; charset=UTF-8'},
-    }).then(function (response) {
-        return response.text();
-    }).then(function (text) {
-        console.log(text);
+
     })
 }
+
+// function showUpdateUser(userId) {
+//     const userByIdURL = `rest/users/` + userId
+//     fetch(userByIdURL)
+//         .then(response => response.json())
+//         .then(user => {
+//             $('#userIdEdit').attr('value', `${user.userId}`)
+//             $('#userNameEdit').attr('value', `${user.firstName}`)
+//             $('#userLastnameEdit').attr('value', `${user.lastName}`)
+//             $('#userAgeEdit').attr('value', `${user.age}`)
+//             $('#userEmailEdit').attr('value', `${user.email}`)
+//             $('#editUserRole').attr('value', `${user.rolesToString}`)
+//             $('#btnEdit').attr('onclick', `editUser('${user.userId}')`)
+//         })
+// }
+//
+// function editUser(userId) {
+//     const userByIdURL = `rest/users/` + userId
+//     $('#editUserRole').attr('value', [])
+//     console.log("editUser activated")
+//     fetch(userByIdURL, {
+//         method: 'PUT',
+//         body: JSON.stringify({
+//             email: $('#userEmailEdit').val(),
+//             password: $('#userPasswordEdit').val(),
+//             firstName: $('#userNameEdit').val(),
+//             lastName: $('#userLastnameEdit').val(),
+//             age: $('#userAgeEdit').val(),
+//             roles: [
+//                 {
+//                     nameOfRole: $('#newUserRole').val()[0]
+//                 }
+//             ]
+//         }),
+//         headers: {'Content-type': 'application/json; charset=UTF-8'},
+//     }).then(function (response) {
+//         return response.text();
+//     }).then(function (text) {
+//         console.log(text);
+//     })
+// }
 
 
 // function func(userId){
