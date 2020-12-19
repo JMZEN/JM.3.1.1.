@@ -1,21 +1,24 @@
 function addNewUser() {
-    const addUserURL = 'http://localhost:8080/admin/add'
+    const addUserURL = 'rest/users'
     console.log("addNewUser activated")
     fetch(addUserURL, {
         method: 'POST',
         body: JSON.stringify({
+            email: $('#newUserEmail').val(),
+            password: $('#newUserPassword').val(),
             firstName: $('#newUserName').val(),
             lastName: $('#newUserLastname').val(),
-            department: $('#newUserDepartment').val(),
-            email: $('#newUserEmail').val(),
-            username: $('#newUserLogin').val(),
-            password: $('#newUserPassword').val(),
+            age: $('#newUserAge').val(),
             roles: [
                 {
-                    id: parseInt($('#newUserRole').val()[0])
+                    nameOfRole: $('#newUserRole').val()[0]
                 }
             ]
         }),
         headers: {'Content-type': 'application/json; charset=UTF-8'}
+    }).then(function (response) {
+        return response.text();
+    }).then(function (text) {
+        console.log(text);
     })
 }

@@ -1,25 +1,24 @@
-
 function showDeleteUser(userId) {
-    const userByIdURL = `rest/users/`+ userId
+    const userByIdURL = `rest/users/` + userId
     fetch(userByIdURL)
         .then(response => response.json())
         .then(user => {
-            $('#userIdDelete').attr('value', `${user.id}`)
+            $('#userIdDelete').attr('value', `${user.userId}`)
             $('#userFirstNameDelete').attr('value', `${user.firstName}`)
             $('#userLastnameDelete').attr('value', `${user.lastName}`)
-            $('#userDepartmentDelete').attr('value', `${user.department}`)
+            $('#userAgeDelete').attr('value', `${user.age}`)
             $('#userEmailDelete').attr('value', `${user.email}`)
             $('#userLoginDelete').attr('value', `${user.username}`)
             $('#userPasswordDelete').attr('value', `${user.password}`)
             $('#userRoleDelete').attr('value', `${user.rolesToString}`)
-            // $('#btnDelete').attr('onclick', `deleteUser(${user.id})`)
+            $('#btnDelete').attr('onclick', `deleteUser('${user.userId}')`)
         })
 }
 
-function deleteUser(userId){
-    const userByIdURL = `http://localhost:8080/admin/delete/${userId}`
+function deleteUser(userId) {
+    const userByIdURL = `rest/users/` + userId
     console.log('deleteUser activated')
-    fetch(userByIdURL,{
+    fetch(userByIdURL, {
         method: 'DELETE'
     })
     $(`#row-${userId}`).remove()

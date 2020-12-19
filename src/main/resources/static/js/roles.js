@@ -5,5 +5,6 @@ fetch('/rest/users/roles')
             let temp = `<option value=${role.nameOfRole}> ${role.nameOfRole} </option>`
             $('#editUserRole').append(temp)
             $('#newUserRole').append(temp)
+            $('#userRoleDelete').append(temp)
         }
     })

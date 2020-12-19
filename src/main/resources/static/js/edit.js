@@ -1,6 +1,4 @@
-
-
-function editPost(userId) {
+function showUpdateUser(userId) {
     const userByIdURL = `rest/users/` + userId
     fetch(userByIdURL)
         .then(response => response.json())
@@ -11,43 +9,41 @@ function editPost(userId) {
             $('#userAgeEdit').attr('value', `${user.age}`)
             $('#userEmailEdit').attr('value', `${user.email}`)
             $('#editUserRole').attr('value', `${user.rolesToString}`)
-
-            document.getElementById("updateUserModal").addEventListener("submit", fetchPatch(userId))
+            $('#btnEdit').attr('onclick', `editUser('${user.userId}')`)
         })
+}
 
-
-
-    function fetchPatch(userId) {
-        console.log(userId)
-        const userByIdURL = `rest/users/` + userId
-
-        $('#user-roles-edit').attr('value', [])
-
-        console.log("editUser activated")
-
-        fetch(userByIdURL, {
-            method: 'PUT',
-            body: JSON.stringify({
-                password: "pa1ss",
-                firstName: "he1llo",
-                lastName: "201@mail.ru",
-                age: 18,
-                roles: [
-                    {
-                        nameOfRole: "ADMIN"
-                    }
-                ]
-            }),
-            headers: {'Content-type': 'application/json; charset=UTF-8'},
-        })
-    }
+function editUser(userId) {
+    const userByIdURL = `rest/users/` + userId
+    $('#editUserRole').attr('value', [])
+    console.log("editUser activated")
+    fetch(userByIdURL, {
+        method: 'PUT',
+        body: JSON.stringify({
+            email: $('#userEmailEdit').val(),
+            password: $('#userPasswordEdit').val(),
+            firstName: $('#userNameEdit').val(),
+            lastName: $('#userLastnameEdit').val(),
+            age: $('#userAgeEdit').val(),
+            roles: [
+                {
+                    nameOfRole: $('#newUserRole').val()[0]
+                }
+            ]
+        }),
+        headers: {'Content-type': 'application/json; charset=UTF-8'},
+    }).then(function (response) {
+        return response.text();
+    }).then(function (text) {
+        console.log(text);
+    })
 }
 
 
 // function func(userId){
 //     console.log(userId)
 // const userByIdURL = `rest/users/`+ userId
-//
+// .finally(() => showAllUsers())
 //     fetch(userByIdURL)
 //         .then(response => response.json())
 //         .then(user => {
@@ -86,3 +82,41 @@ function editPost(userId) {
 //         })
 //     }
 // }
+
+// fetch(editPost('z'), {
+//     method: 'PUT',
+//     body: JSON.stringify({
+//         password: "pass",
+//         firstName: $('#userNameEdit').val(),
+//         lastName: "201@mail.ru",
+//         age: 18,
+//         roles: [
+//             {
+//                 nameOfRole: "ADMIN"
+//             }
+//         ]
+//     }),
+//     headers: {'Content-type': 'application/json; charset=UTF-8'},
+// }).then(value => value.text())
+//     .then(value => console.log(value))
+
+// const myForm = document.getElementById("updateUserModal");
+// myForm.addEventListener("submit", e => {
+//     e.preventDefault();
+//
+//     console.log('fetch for update')
+//     $('#user-roles-edit').attr('value', [])
+//     console.log("editUser activated")
+
+// const formData = new FormData(this);
+//
+// fetch(editPost('z'), {
+//     method: 'PUT',
+//     body: formData,
+//     headers: {'Content-type': 'application/json; charset=UTF-8'},
+// }).then(function (response) {
+//     return response.text();
+// }).then(function (text) {
+//     console.log(text);
+// })
+// })

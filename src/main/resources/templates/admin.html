@@ -88,17 +88,12 @@
                                            name="lastName" required/>
                                 </div>
                                 <div class="form-group">
-                                    <label class="font-weight-bold m-0" for="newUserDepartment">Department</label>
-                                    <input type="text" class="form-control" name="department" id="newUserDepartment"/>
+                                    <label class="font-weight-bold m-0" for="newUserAge">Age</label>
+                                    <input type="text" class="form-control" name="age" id="newUserAge"/>
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-bold m-0" for="newUserEmail">Email</label>
                                     <input type="text" class="form-control" name="email" id="newUserEmail"/>
-                                </div>
-                                <div class="form-group">
-                                    <label class="font-weight-bold m-0" for="newUserLogin">Login</label>
-                                    <input type="text" class="form-control bg-warning" name="username" id="newUserLogin"
-                                           required/>
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-bold m-0" for="newUserPassword">Password</label>
@@ -136,7 +131,7 @@
             <!--            Modal body-->
             <div class="modal-body">
                 <div class="container-fluid py-3 bg-white">
-                    <form class="mx-auto text-center" style="width: 380px" name="id" id="updateUserModal">
+                    <form id="updateUserModal" class="mx-auto text-center" style="width: 380px">
                         <div class="form-group">
                             <label class="font-weight-bold m-0" for="userIdEdit">User Id</label>
                             <input class="form-control" type="text" id="userIdEdit" readonly/>
@@ -173,7 +168,7 @@
                 <!--            Modal footer-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                    <button id="btnEdit" type="submit" class="btn btn-info" name="id" data-dismiss="modal">Edit</button>
+                    <button id="#btnEdit" type="submit" class="btn btn-info" data-dismiss="modal">Edit</button>
                 </div>
             </div>
         </div>
@@ -196,7 +191,7 @@
                 <div class="container-fluid py-3 bg-white">
                     <form class="mx-auto text-center" style="width: 380px" name="id">
                         <div class="form-group">
-                            <label class="font-weight-bold m-0" for="userIdDelete">ID</label>
+                            <label class="font-weight-bold m-0" for="userIdDelete">User ID</label>
                             <input type="text" class="form-control" id="userIdDelete" readonly/>
                         </div>
                         <div class="form-group">
@@ -208,21 +203,13 @@
                             <input type="text" class="form-control" id="userLastnameDelete" name="lastName" readonly/>
                         </div>
                         <div class="form-group">
-                            <label class="font-weight-bold m-0" for="userDepartmentDelete">Department</label>
-                            <input type="text" class="form-control" id="userDepartmentDelete" name="department"
+                            <label class="font-weight-bold m-0" for="userAgeDelete">Age</label>
+                            <input type="text" class="form-control" id="userAgeDelete" name="age"
                                    readonly/>
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold m-0" for="userEmailDelete">Email</label>
                             <input type="text" class="form-control" id="userEmailDelete" name="email" readonly/>
-                        </div>
-                        <div class="form-group">
-                            <label class="font-weight-bold m-0" for="userLoginDelete">Login</label>
-                            <input type="text" class="form-control" id="userLoginDelete" name="username" readonly/>
-                        </div>
-                        <div class="form-group">
-                            <label class="font-weight-bold m-0" for="userPasswordDelete">Password</label>
-                            <input type="text" class="form-control" id="userPasswordDelete" name="password" readonly/>
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold m-0" for="userRoleDelete">Role</label>
