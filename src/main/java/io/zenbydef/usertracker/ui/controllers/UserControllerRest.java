@@ -1,9 +1,12 @@
 package io.zenbydef.usertracker.ui.controllers;
 
+import io.zenbydef.usertracker.io.shared.RoleDto;
 import io.zenbydef.usertracker.io.shared.UserDto;
 import io.zenbydef.usertracker.security.annotations.*;
+import io.zenbydef.usertracker.service.roledtoservice.RoleDtoService;
 import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
 import io.zenbydef.usertracker.ui.models.request.operstions.UserDetailsRequestModel;
+import io.zenbydef.usertracker.ui.models.response.RoleRest;
 import io.zenbydef.usertracker.ui.models.response.UserRest;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -12,7 +15,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,10 +22,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/rest/users")
 public class UserControllerRest {
     private final UserDtoService userDtoService;
+    private final RoleDtoService roleDtoService;
     private static final ModelMapper modelMapper = new ModelMapper();
 
-    public UserControllerRest(UserDtoService userDtoService) {
+    public UserControllerRest(UserDtoService userDtoService, RoleDtoService roleDtoService) {
         this.userDtoService = userDtoService;
+        this.roleDtoService = roleDtoService;
     }
 
     @UserCreatePermission
@@ -52,6 +56,16 @@ public class UserControllerRest {
         return modelMapper.map(userDto, UserRest.class);
     }
 
+    @UserListReadPermission
+    @GetMapping(path = "/roles",
+            produces = "application/json")
+    public List<RoleRest> getAllRoles() {
+        List<RoleDto> roleDtoList = roleDtoService.getRoles();
+        return roleDtoList.stream()
+                .map(roleDto -> modelMapper.map(roleDto, RoleRest.class))
+                .collect(Collectors.toList());
+    }
+
     @UserViewProfilePermission
     @GetMapping(path = "/principal",
             produces = "application/json")
@@ -65,7 +79,7 @@ public class UserControllerRest {
             consumes = "application/json",
             produces = "application/json")
     public ResponseEntity<?> updateUser(@PathVariable String userId,
-                               @RequestBody UserDetailsRequestModel userDetails) {
+                                        @RequestBody UserDetailsRequestModel userDetails) {
         UserDto convertedUser = modelMapper.map(userDetails, UserDto.class);
         UserDto userForUpdate = userDtoService.updateUser(userId, convertedUser);
         return ResponseEntity.ok(userForUpdate);
