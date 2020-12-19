@@ -1,15 +1,15 @@
-function getUserForUpdate(userId) {
+function func(userId) {
     console.log(userId)
 
-    fetch('rest/users/' + userId).then(value => {
-        return value.json();
-    }).then((user => {
+    fetch('rest/users/' + userId)
+        .then(response => response.json())
+        .then((user => {
         $('#user-id-edit').attr('value', `${user.userId}`)
         $('#user-first-name-edit').attr('value', `${user.firstName}`)
         $('#user-last-name-edit').attr('value', `${user.lastName}`)
         $('#user-age-edit').attr('value', `${user.age}`)
         $('#user-roles-edit').attr('value', `${user.rolesAsString}`)
-        $('#button-user-edit').attr('onclick', editUser(userId))
+        $('#button-user-edit').attr('onclick', `editUser()`)
         console.log('edit activated')
         console.log(user)
     }))
