@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDtoService userDtoService;
     private final AuthenticationSuccessHandler successHandler;
@@ -44,20 +44,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .successHandler(successHandler)
-                .permitAll();
+//        http.formLogin()
+//                .usernameParameter("email")
+//                .passwordParameter("password")
+//                .successHandler(successHandler)
+//                .permitAll();
 
         http.authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .csrf().disable();
 
-        http.logout()
-                .logoutUrl("/logout")
-                .permitAll();
+//        http.logout()
+//                .logoutUrl("/logout")
+//                .permitAll();
     }
+
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.formLogin()
+//                .usernameParameter("email")
+//                .passwordParameter("password")
+//                .successHandler(successHandler)
+//                .permitAll();
+//
+//        http.authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and()
+//                .csrf().disable();
+//
+//        http.logout()
+//                .logoutUrl("/logout")
+//                .permitAll();
+//    }
 }
 

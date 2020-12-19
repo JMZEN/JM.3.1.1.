@@ -82,7 +82,7 @@ public class UserControllerRest {
                                         @RequestBody UserDetailsRequestModel userDetails) {
         UserDto convertedUser = modelMapper.map(userDetails, UserDto.class);
         UserDto userForUpdate = userDtoService.updateUser(userId, convertedUser);
-        return ResponseEntity.ok(userForUpdate);
+        return ResponseEntity.accepted().build();
     }
 
     @UserDeletePermission
