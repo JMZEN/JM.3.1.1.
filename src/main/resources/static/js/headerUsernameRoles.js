@@ -4,6 +4,6 @@ fetch("/rest/users/principal")
         $('#headerUsername').append(user.email)
         $('#headerUserRoles').append(`${user.rolesAsString}`)
         if (!`${user.rolesAsString}`.includes('ADMIN')) {
-            $('#admin-navbar-tab').attr('hidden', 'true')
+            $('#adminLinkPanel').attr('hidden', 'true')
         }
     });

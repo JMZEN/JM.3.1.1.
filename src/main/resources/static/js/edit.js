@@ -11,12 +11,12 @@ function func(userId) {
             $('#userEmailEdit').attr('value', `${user.email}`)
             $('#editUserRole').attr('value', `${user.rolesToString}`)
 
-            $('#btnEdit').attr('onclick', `editUser()`)
+            $('#btnEdit').attr('onclick', `editUser('${user.userId}')`)
         })
 }
 
-function editUser() {
-    const editUserURL = 'http://localhost:8080/admin/add'
+function editUser(userId) {
+    const editUserURL = `rest/users/` + userId
     $('#editUserRole').attr('value', [])
     console.log("editUser activated")
     fetch(editUserURL, {
@@ -31,7 +31,7 @@ function editUser() {
             password: $('#userPasswordEdit').val(),
             roles: [
                 {
-                    id: parseInt($('#editUserRole').val()[0])
+                    nameOfRole: $('#editUserRole').val()[0]
                 }
             ]
         }),
