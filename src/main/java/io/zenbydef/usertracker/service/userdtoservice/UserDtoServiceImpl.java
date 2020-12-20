@@ -118,9 +118,15 @@ public class UserDtoServiceImpl implements UserDtoService {
         foundUserEntityForUpdate.setFirstName(userDto.getFirstName());
         foundUserEntityForUpdate.setLastName(userDto.getLastName());
         foundUserEntityForUpdate.setAge(userDto.getAge());
-        foundUserEntityForUpdate.setRoles(convertRoleDtoToRoleEntity(userDto.getRoles()));
+        checkForRolesUpdate(userDto, foundUserEntityForUpdate);
         UserEntity savedUser = userDtoRepository.save(foundUserEntityForUpdate);
         return modelMapper.map(savedUser, UserDto.class);
+    }
+
+    private void checkForRolesUpdate(UserDto userDto, UserEntity foundUserEntityForUpdate) {
+        if (userDto.getRoles().get(0).getNameOfRole() != null) {
+            foundUserEntityForUpdate.setRoles(convertRoleDtoToRoleEntity(userDto.getRoles()));
+        }
     }
 
     private void createNewEncryptedPassword(UserDto userDto, UserEntity foundUserEntityForUpdate) {

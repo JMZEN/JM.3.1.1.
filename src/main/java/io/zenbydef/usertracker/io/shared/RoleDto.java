@@ -43,4 +43,14 @@ public class RoleDto implements Serializable {
     public void setPrivileges(List<Privilege> privileges) {
         this.privileges = privileges;
     }
+
+    @Override
+    public String toString() {
+        return "RoleDto{" +
+                "id=" + id +
+                ", nameOfRole='" + nameOfRole + '\'' +
+                ", users=" + users +
+                ", privileges=" + privileges +
+                '}';
+    }
 }

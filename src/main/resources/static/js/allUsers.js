@@ -1,9 +1,8 @@
-const allUsersURL = 'rest/users'
-
 showAllUsers()
 
 function showAllUsers() {
     console.log("showAllUsers activated")
+    const allUsersURL = 'rest/users'
     fetch(allUsersURL)
         .then(response => response.json())
         .then(result => {

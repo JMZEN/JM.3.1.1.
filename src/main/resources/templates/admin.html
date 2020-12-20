@@ -7,6 +7,7 @@
     <title>All users</title>
 </head>
 <body class="text-dark bg-light">
+
 <!--footer-->
 <div class="row bg-dark text-white p-2">
     <div class="col-md-6 text-left px-3 py-2">
@@ -18,6 +19,7 @@
     </div>
     <div class="col-md-6 text-right"><a class="nav-link text-light" href="/logout">Logout</a></div>
 </div>
+
 <!--container-->
 <div class="container-fluid flex">
     <div class="row min-vh-100">
@@ -32,7 +34,7 @@
                 </li>
             </ul>
         </div>
-        <!--        main -->
+        <!--main -->
         <div class="col-md-10 px-4 py-3">
             <div class="container-fluid">
                 <h1 class="mb-3">Admin panel</h1>
@@ -66,7 +68,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="mainTableBodyUsers">
-                                <!--                                Content Users Table-->
+                                <!--Content Users Table-->
                                 </tbody>
                             </table>
                         </div>
@@ -78,7 +80,8 @@
                         <h4 class="m-2">Add new user</h4>
 
                         <div class="container-fluid py-3 bg-white">
-                            <form onsubmit="addNewUser()" autocomplete="off" class="mx-auto text-center" style="width: 380px">
+                            <form onsubmit="addNewUser()" autocomplete="off" class="mx-auto text-center"
+                                  style="width: 380px">
                                 <label for="newUserId"></label>
                                 <input hidden type="text" name="id" id="newUserId"/>
                                 <div class="form-group">
@@ -97,16 +100,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-bold m-0" for="newUserEmail">Email</label>
-                                    <input type="text" class="form-control bg-light" name="email" id="newUserEmail" required/>
+                                    <input type="text" class="form-control bg-light" name="email" id="newUserEmail"
+                                           required/>
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-bold m-0" for="newUserPassword">Password</label>
                                     <input type="password" class="form-control bg-light" name="password"
-                                           id="newUserPassword" required />
+                                           id="newUserPassword" required/>
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-bold m-0" for="newUserRole">Role</label>
-                                    <select id="newUserRole" class="form-control bg-light" name="roles" multiple required>
+                                    <select id="newUserRole" class="form-control bg-light" name="roles" multiple
+                                            required>
                                         <!--                                        Content Selector-->
                                     </select>
                                 </div>
@@ -131,11 +136,11 @@
                 <h4 class="modal-title">Edit user</h4>
                 <button type="button" class="close" data-dismiss="modal">x</button>
             </div>
-<!--            onsubmit="editUser(id)"-->
+
             <!--            Modal body-->
             <div class="modal-body">
                 <div class="container-fluid py-3 bg-white">
-                    <form method="post" id="updateUserModal" class="mx-auto text-center" style="width: 380px">
+                    <form id="updateUserModal" class="mx-auto text-center" style="width: 380px">
                         <div class="form-group">
                             <label class="font-weight-bold m-0" for="userIdEdit">User Id</label>
                             <input class="form-control" type="text" id="userIdEdit" name="id" value="{{$id}}" readonly/>
@@ -158,7 +163,7 @@
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold m-0" for="userPasswordEdit">Password</label>
-                            <input type="text" class="form-control" id="userPasswordEdit" name="password" required/>
+                            <input type="password" class="form-control" id="userPasswordEdit" name="password" required/>
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold m-0" for="editUserRole">Role</label>
@@ -170,17 +175,12 @@
                 </div>
 
                 <!--            Modal footer-->
-
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                    <button id="btnEdit" type="submit" class="btn btn-danger" data-dismiss="modal" name="id">Edit
+                    <button type="button" onclick="cleanModal()" class="btn btn-dark" data-dismiss="modal">Close
+                    </button>
+                    <button id="btnEdit" type="submit" class="btn btn-info" data-dismiss="modal" name="id">Edit
                     </button>
                 </div>
-
-<!--                <div class="modal-footer">-->
-<!--                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>-->
-<!--                    <button id="#btnEdit" type="submit" class="btn btn-info" data-dismiss="modal">Edit</button>-->
-<!--                </div>-->
             </div>
         </div>
     </div>
@@ -224,16 +224,11 @@
                         </div>
                         <div class="form-group">
                             <label class="font-weight-bold m-0" for="userRoleDelete">Role</label>
-                            <select id="userRoleDelete" class="form-control" name="roles" readonly multiple >
+                            <select id="userRoleDelete" class="form-control" name="roles" readonly multiple>
                                 <!--                                Content Selector-->
                             </select>
                         </div>
                     </form>
-<!--                        <div class="form-group">-->
-<!--                            <label class="font-weight-bold m-0" for="userRoleDelete">Role</label>-->
-<!--                            <input type="text" class="form-control" id="userRoleDelete" readonly/>-->
-<!--                        </div>-->
-<!--                    </form>-->
                 </div>
 
                 <!--            Modal footer-->
