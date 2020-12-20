@@ -28,3 +28,8 @@ function showAllUsers() {
             }
         })
 }
+
+function cleanTable() {
+    $('#someTable tr:gt(0)').remove()
+    showAllUsers()
+}
