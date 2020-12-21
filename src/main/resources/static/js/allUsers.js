@@ -40,11 +40,4 @@ function showAllUsers() {
             $(tableBody).append(temp)
         }
     })
-
 }
-
-
-// function cleanTable() {
-//     $('#someTable tr:gt(0)').remove()
-//     showAllUsers()
-// }

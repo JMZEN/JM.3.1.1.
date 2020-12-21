@@ -31,7 +31,7 @@ $(document).ready(() => {
                 $('#mainTableBodyUsers').append(temp)
                 console.log('done row')
             }).then(function () {
-            document.location.reload();
+            showAllUsers()
         })
     }
 })

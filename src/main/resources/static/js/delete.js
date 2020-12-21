@@ -18,6 +18,5 @@ function deleteUser(userId) {
     console.log('deleteUser activated')
     fetch(userByIdURL, {
         method: 'DELETE'
-    })
-    $(`#row-${userId}`).remove()
+    }).then($(`#row-${userId}`).remove())
 }

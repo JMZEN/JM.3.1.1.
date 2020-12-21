@@ -42,6 +42,5 @@ function editUser(userId) {
         headers: {'Content-type': 'application/json; charset=UTF-8'},
     }).then(function () {
         showAllUsers()
-
     })
 }
