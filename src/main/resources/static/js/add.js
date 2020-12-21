@@ -30,7 +30,9 @@ $(document).ready(() => {
                 </tr>`
                 $('#mainTableBodyUsers').append(temp)
                 console.log('done row')
-            })
+            }).then(function () {
+            document.location.reload();
+        })
     }
 })
 
