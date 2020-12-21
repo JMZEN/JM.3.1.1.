@@ -1,13 +1,25 @@
-showAllUsers()
+$(document).ready(function () {
+    showAllUsers();
+});
 
 function showAllUsers() {
-    console.log("showAllUsers activated")
+
     const allUsersURL = 'rest/users'
     fetch(allUsersURL)
-        .then(response => response.json())
-        .then(result => {
-            for (let user of result) {
-                let temp = `<tr id="row-${user.userId}">
+        .then(response => {
+            if (response.ok) {
+                console.log("showAllUsers111 activated")
+                console.log(document.readyState);
+
+                return response.json()
+            }
+
+        }).then(result => {
+        var tableBody = $('#fillTableAllUsers tbody')
+        tableBody.empty();
+
+        for (let user of result) {
+            let temp = `<tr id="row-${user.userId}">
                     <td id="idEdit">${user.userId}</td>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
@@ -24,12 +36,15 @@ function showAllUsers() {
                         type="button" data-toggle="modal" data-target=#modalDeleteView>Delete</button>
                     </td>
                 </tr>`
-                $('#mainTableBodyUsers').append(temp)
-            }
-        })
+
+            $(tableBody).append(temp)
+        }
+    })
+
 }
 
-function cleanTable() {
-    $('#someTable tr:gt(0)').remove()
-    showAllUsers()
-}
+
+// function cleanTable() {
+//     $('#someTable tr:gt(0)').remove()
+//     showAllUsers()
+// }

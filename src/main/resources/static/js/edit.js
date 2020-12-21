@@ -42,13 +42,13 @@ function editUser(userId) {
         headers: {'Content-type': 'application/json; charset=UTF-8'},
     })
 
-    // updateUserTableRow(userId)
+    updateUserTableRow(userId)
 }
 
 function updateUserTableRow(userId) {
     const userByIdURL = `rest/users/` + userId
+    $(`#row-${userId}`).remove()
     fetch(userByIdURL)
-
         .then(response => response.json())
         .then(user => {
             let temp = `<tr id="row-${userId}">

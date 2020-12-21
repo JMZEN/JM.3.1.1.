@@ -33,10 +33,10 @@ public class UserControllerRest {
     @UserCreatePermission
     @PostMapping(consumes = "application/json",
             produces = "application/json")
-    public ResponseEntity<?> createUser(@RequestBody UserDetailsRequestModel requestModel) {
+    public UserRest createUser(@RequestBody UserDetailsRequestModel requestModel) {
         UserDto convertedUser = modelMapper.map(requestModel, UserDto.class);
         UserDto createdUser = userDtoService.createUser(convertedUser);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return modelMapper.map(convertedUser, UserRest.class);
     }
 
     @UserListReadPermission
