@@ -7,10 +7,10 @@ $('#btnAddUser').click(() => {
 })
 
 function addNewUser() {
-    const dfd = new $.Deferred();
     event.preventDefault()
+
+    const dfd = new $.Deferred();
     const addUserURL = 'rest/users'
-    console.log("addNewUser activated")
     const requestOptions = createPOSTRequestBody();
 
     fetch(addUserURL, requestOptions)
