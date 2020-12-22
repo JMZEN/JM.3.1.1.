@@ -28,7 +28,7 @@ function showAllUsers() {
                     <td>${user.rolesAsString}</td>
                     
                     <td> 
-                        <button class="btn btn-info" onclick="func('${user.userId}')" 
+                        <button class="btn btn-info" onclick="updateUserModal('${user.userId}')" 
                         type="button" data-toggle="modal" data-target=#modalEditView>Edit</button>
                     </td>
                     <td>

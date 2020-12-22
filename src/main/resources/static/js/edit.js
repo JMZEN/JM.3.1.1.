@@ -1,10 +1,14 @@
 function cleanModal() {
     console.log('clean')
+    document.getElementById('updateUserModal').reset();
     $("#updateUserModal").trigger("reset");
 }
 
-function func(userId) {
+function updateUserModal(userId) {
     console.log(userId)
+
+    document.getElementById('updateUserModal').reset();
+    $("#updateUserModal").trigger("reset");
     const userByIdURL = `rest/users/` + userId
     fetch(userByIdURL)
 
