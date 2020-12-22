@@ -3,7 +3,7 @@ $('#btnAddUser').click(() => {
         .then(refreshPage)
         .then(function () {
         document.getElementById('newUserForm').reset();
-    }).then($('#usersTable').toggle())
+    }).then($('#userTableLink').click())
 })
 
 function refreshPage() {
