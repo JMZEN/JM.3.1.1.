@@ -1,5 +1,6 @@
 function showDeleteUser(userId) {
     const userByIdURL = `rest/users/` + userId
+
     fetch(userByIdURL)
         .then(response => response.json())
         .then(user => {
@@ -15,8 +16,9 @@ function showDeleteUser(userId) {
 
 function deleteUser(userId) {
     const userByIdURL = `rest/users/` + userId
-    console.log('deleteUser activated')
+
     fetch(userByIdURL, {
         method: 'DELETE'
-    }).then($(`#row-${userId}`).remove())
+    })
+        .then($(`#row-${userId}`).remove())
 }

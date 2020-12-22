@@ -4,8 +4,9 @@ $('#btnCloseEdit').click(() => {
 
 function updateUserModal(userId) {
     cleanEditModal()
-    console.log(userId)
+
     const userByIdURL = `rest/users/` + userId
+
     fetch(userByIdURL)
         .then(response => response.json())
         .then(user => {
@@ -34,7 +35,7 @@ function editUser(userId) {
 
 function cleanEditModal() {
     document.getElementById('updateUserModal').reset();
-    $("#updateUserModal").trigger("reset");
+    // $("#updateUserModal").trigger("reset");
 }
 
 function createRequestOptions() {
