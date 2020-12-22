@@ -41,7 +41,8 @@
 
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a id="userTableLink" class="nav-link active" data-toggle="tab" href="#usersTable">Users table</a>
+                        <a id="userTableLink" class="nav-link active" data-toggle="tab" href="#usersTable">Users
+                            table</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#newUser">New User</a>
@@ -168,17 +169,17 @@
                         <div class="form-group">
                             <label class="font-weight-bold m-0" for="editUserRole">Role</label>
                             <select id="editUserRole" class="form-control" name="roles" multiple required>
-                                <!--                                Content Selector-->
+                                <!--Content Selector-->
                             </select>
                         </div>
                     </form>
                 </div>
 
-                <!--            Modal footer-->
+                <!--Modal footer-->
                 <div class="modal-footer">
-                    <button type="button" onclick="cleanModal()" class="btn btn-dark" data-dismiss="modal">Close
+                    <button id="btnCloseEdit" type="button" class="btn btn-dark" data-dismiss="modal">Close
                     </button>
-                    <button id="btnEdit" onclick="cleanModal()" type="submit" class="btn btn-info" data-dismiss="modal" name="id">Edit
+                    <button id="btnEdit" type="submit" class="btn btn-info" data-dismiss="modal" name="id">Edit
                     </button>
                 </div>
             </div>

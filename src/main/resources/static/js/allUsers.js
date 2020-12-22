@@ -1,9 +1,6 @@
-
-    showAllUsers();
-
+showAllUsers();
 
 function showAllUsers() {
-
     const allUsersURL = 'rest/users'
     fetch(allUsersURL)
         .then(response => {

@@ -1,17 +1,12 @@
-function cleanModal() {
-    console.log('clean')
-    document.getElementById('updateUserModal').reset();
-    $("#updateUserModal").trigger("reset");
-}
+$('#btnCloseEdit').click(() => {
+    cleanEditModal()
+})
 
 function updateUserModal(userId) {
+    cleanEditModal()
     console.log(userId)
-
-    document.getElementById('updateUserModal').reset();
-    $("#updateUserModal").trigger("reset");
     const userByIdURL = `rest/users/` + userId
     fetch(userByIdURL)
-
         .then(response => response.json())
         .then(user => {
             $('#userIdEdit').attr('value', `${user.userId}`)
@@ -27,9 +22,23 @@ function updateUserModal(userId) {
 
 function editUser(userId) {
     const editUserURL = `rest/users/` + userId
+    const requestOptions = createRequestOptions();
+
     $('#editUserRole').attr('value', [])
-    console.log("editUser activated")
-    fetch(editUserURL, {
+
+    fetch(editUserURL, requestOptions)
+        .then(function () {
+            showAllUsers()
+        })
+}
+
+function cleanEditModal() {
+    document.getElementById('updateUserModal').reset();
+    $("#updateUserModal").trigger("reset");
+}
+
+function createRequestOptions() {
+    return {
         method: 'PUT',
         body: JSON.stringify({
             email: $('#userEmailEdit').val(),
@@ -44,7 +53,5 @@ function editUser(userId) {
             ]
         }),
         headers: {'Content-type': 'application/json; charset=UTF-8'},
-    }).then(function () {
-        showAllUsers()
-    })
+    };
 }
