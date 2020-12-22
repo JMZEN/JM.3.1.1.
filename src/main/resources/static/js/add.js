@@ -1,11 +1,9 @@
-// // $(document).ready(() => { .then(refreshPage)
 $('#btnAddUser').click(() => {
     addNewUser()
-        // .then(refreshPage)
+        .then(refreshPage)
         .then(function () {
         document.getElementById('newUserForm').reset();
     }).then()
-
 })
 
 function refreshPage() {
@@ -22,11 +20,6 @@ function addNewUser() {
     fetch(addUserURL, requestOptions)
 
         .then(response => response.json())
-        .then(user => {
-            let temp = createNewUserRow(user);
-            $('#mainTableBodyUsers').append(temp)
-        })
-
         .then(dfd.resolve)
     return dfd.promise();
 }
@@ -71,15 +64,3 @@ function createPOSTRequestBody() {
         // success:
     };
 }
-
-
-
-
-//     .then(document.getElementById("btnAddUser").onclick = function () {
-//         //     window.location.hash = "#usersTable";
-//         // })
-//             // .then(window.location.hash = "#usersTable")
-//
-
-//
-//     // });
