@@ -42,28 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return daoAuthenticationProvider;
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.formLogin()
-//                .usernameParameter("email")
-//                .passwordParameter("password")
-//                .successHandler(successHandler)
-//                .permitAll();
-
-//        http.authorizeRequests()
-//                .anyRequest().permitAll()
-//                .and()
-//                .csrf().disable();
-
-//        http.logout()
-//                .logoutUrl("/logout")
-//                .permitAll();
-//    }
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler(successHandler)
@@ -79,4 +62,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 }
-

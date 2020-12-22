@@ -5,11 +5,10 @@ import io.zenbydef.usertracker.io.shared.UserDto;
 import io.zenbydef.usertracker.security.annotations.*;
 import io.zenbydef.usertracker.service.roledtoservice.RoleDtoService;
 import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
-import io.zenbydef.usertracker.ui.models.request.operstions.UserDetailsRequestModel;
+import io.zenbydef.usertracker.ui.models.request.operations.UserDetailsRequestModel;
 import io.zenbydef.usertracker.ui.models.response.RoleRest;
 import io.zenbydef.usertracker.ui.models.response.UserRest;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -36,7 +35,7 @@ public class UserControllerRest {
     public UserRest createUser(@RequestBody UserDetailsRequestModel requestModel) {
         UserDto convertedUser = modelMapper.map(requestModel, UserDto.class);
         UserDto createdUser = userDtoService.createUser(convertedUser);
-        return modelMapper.map(convertedUser, UserRest.class);
+        return modelMapper.map(createdUser, UserRest.class);
     }
 
     @UserListReadPermission

@@ -1,4 +1,4 @@
-package io.zenbydef.usertracker.ui.models.request.operstions;
+package io.zenbydef.usertracker.ui.models.request.operations;
 
 import java.util.List;
 
