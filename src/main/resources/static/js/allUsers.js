@@ -2,15 +2,12 @@ showAllUsers();
 
 function showAllUsers() {
     const allUsersURL = 'rest/users'
+
     fetch(allUsersURL)
         .then(response => {
             if (response.ok) {
-                console.log("showAllUsers111 activated")
-                console.log(document.readyState);
-
                 return response.json()
             }
-
         }).then(result => {
         var tableBody = $('#fillTableAllUsers tbody')
         tableBody.empty();

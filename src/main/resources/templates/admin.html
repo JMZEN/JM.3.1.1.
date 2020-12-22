@@ -23,7 +23,8 @@
 <!--container-->
 <div class="container-fluid flex">
     <div class="row min-vh-100">
-        <!--    left panel-->
+
+        <!--left panel-->
         <div class="col-md-2 p-0 pt-3 bg-white">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
@@ -34,6 +35,7 @@
                 </li>
             </ul>
         </div>
+
         <!--main -->
         <div class="col-md-10 px-4 py-3">
             <div class="container-fluid" id="adminPanelMain">
@@ -52,6 +54,7 @@
                 <div class="tab-content">
                     <!--Users table TAB-->
                     <div id="usersTable" class="container-fluid tab-pane active">
+
                         <h4 class="m-2">All users</h4>
                         <div class="container-fluid bg-white py-1">
                             <table id="fillTableAllUsers" class="table table-striped">
@@ -113,7 +116,7 @@
                                     <label class="font-weight-bold m-0" for="newUserRole">Role</label>
                                     <select id="newUserRole" class="form-control bg-light" name="roles" multiple
                                             required>
-                                        <!--                                        Content Selector-->
+                                        <!--Content Selector-->
                                     </select>
                                 </div>
                                 <input id="btnAddUser" class="btn btn-success" type="submit"
@@ -121,6 +124,8 @@
                             </form>
                         </div>
                     </div>
+                    <!--New User TAB End-->
+
                 </div>
             </div>
         </div>
@@ -192,13 +197,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <!--            Modal Header-->
+            <!--Modal Header-->
             <div class="modal-header">
                 <h4 class="modal-title">Delete user</h4>
                 <button type="button" class="close" data-dismiss="modal">x</button>
             </div>
 
-            <!--            Modal body-->
+            <!--Modal body-->
             <div class="modal-body">
                 <div class="container-fluid py-3 bg-white">
                     <form class="mx-auto text-center" style="width: 380px" name="id">
@@ -232,7 +237,7 @@
                     </form>
                 </div>
 
-                <!--            Modal footer-->
+                <!--Modal footer-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                     <button id="btnDelete" type="submit" class="btn btn-danger" data-dismiss="modal" name="id">Delete
@@ -242,10 +247,12 @@
         </div>
     </div>
 </div>
+
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 <script src="js/headerUsernameRoles.js"></script>
 <script src="js/add.js"></script>
 <script src="js/edit.js"></script>
