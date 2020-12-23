@@ -9,7 +9,7 @@ function showAllUsers() {
                 return response.json()
             }
         }).then(result => {
-        var tableBody = $('#fillTableAllUsers tbody')
+        const tableBody = $('#fillTableAllUsers tbody');
         tableBody.empty();
 
         for (let user of result) {

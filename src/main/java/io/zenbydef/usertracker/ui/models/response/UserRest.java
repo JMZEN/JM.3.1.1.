@@ -11,7 +11,7 @@ public class UserRest implements Serializable {
     private String lastName;
     private int age;
     private List<RoleRest> roles;
-    private String rolesAsString = getRolesAsString();
+    private final String rolesAsString = getRolesAsString();
 
     public String getUserId() {
         return userId;

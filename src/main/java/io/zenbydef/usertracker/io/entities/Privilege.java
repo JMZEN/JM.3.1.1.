@@ -3,9 +3,7 @@ package io.zenbydef.usertracker.io.entities;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
-
 
 @Entity
 @Table(name = "privileges")

@@ -96,7 +96,7 @@ public class UserDtoServiceImpl implements UserDtoService {
     }
 
     private void createNewEncryptedPassword(UserDto userDto, UserEntity foundUserEntityForUpdate) {
-        if (userDto.getPassword() != null) {
+        if (userDto.getPassword().length() != 0) {
             foundUserEntityForUpdate.setEncryptedPassword(encoder.encode(userDto.getPassword()));
         }
     }

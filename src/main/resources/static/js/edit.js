@@ -40,7 +40,7 @@ function cleanEditModal() {
 
 function createRequestOptions() {
     return {
-        method: 'PUT',
+        method: 'PATCH',
         body: JSON.stringify({
             email: $('#userEmailEdit').val(),
             password: $('#userPasswordEdit').val(),
