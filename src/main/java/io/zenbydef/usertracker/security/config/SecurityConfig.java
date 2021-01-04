@@ -16,14 +16,15 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 @EnableWebSecurity
-
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDtoService userDtoService;
-    private CustomOauth2UserService oauth2UserService;
+    private final CustomOauth2UserService oauth2UserService;
     private final AuthenticationSuccessHandler successHandler;
 
-    public SecurityConfig(AuthenticationSuccessHandler successHandler) {
+    public SecurityConfig(CustomOauth2UserService oauth2UserService,
+                          AuthenticationSuccessHandler successHandler) {
+        this.oauth2UserService = oauth2UserService;
         this.successHandler = successHandler;
     }
 
