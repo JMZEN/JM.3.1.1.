@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_rest_users?serverTimezone=UTC
+    username: springstudent
+    password: springstudent
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 727368944716-801bqqsj0burhm4di3up9f70djsb6lt3.apps.googleusercontent.com
+            clientSecret: z2d5tA_CAX2oQPHiX7-wFJFa
+            scope:
+              - email
+              - profile
+            redirectUri: http://localhost:8080/login/oauth2/code/google
