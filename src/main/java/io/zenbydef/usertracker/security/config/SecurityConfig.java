@@ -1,9 +1,7 @@
 package io.zenbydef.usertracker.security.config;
 
-import io.zenbydef.usertracker.io.shared.UserDto;
 import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
