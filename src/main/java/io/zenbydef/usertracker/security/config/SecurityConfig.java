@@ -1,5 +1,6 @@
 package io.zenbydef.usertracker.security.config;
 
+import io.zenbydef.usertracker.service.CustomOauth2UserService;
 import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDtoService userDtoService;
+    private CustomOauth2UserService oauth2UserService;
     private final AuthenticationSuccessHandler successHandler;
 
     public SecurityConfig(AuthenticationSuccessHandler successHandler) {
@@ -52,6 +54,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .successHandler(successHandler)
                 .permitAll();
+
+        http.oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint()
+                .userService(oauth2UserService);
 
         http.authorizeRequests()
                 .anyRequest().authenticated()

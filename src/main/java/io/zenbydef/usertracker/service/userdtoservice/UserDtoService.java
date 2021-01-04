@@ -6,7 +6,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 
 import java.util.List;
 
-public interface UserDtoService extends UserDetailsService, OAuth2UserService {
+public interface UserDtoService extends UserDetailsService {
     UserDto createUser(UserDto user);
 
     UserDto findUserByName(String userName);
