@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,8 +70,8 @@ public class UserControllerRest {
     @UserViewProfilePermission
     @GetMapping(path = "/principal",
             produces = "application/json")
-    public UserRest AuthenticateUser(@AuthenticationPrincipal User principal) {
-        UserDto userDto = userDtoService.findUserByName(principal.getUsername());
+    public UserRest AuthenticateUser(Principal principal) {
+        UserDto userDto = userDtoService.findUserByName(principal.getName());
         return modelMapper.map(userDto, UserRest.class);
     }
 
