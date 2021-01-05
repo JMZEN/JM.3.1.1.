@@ -40,37 +40,45 @@ public class UserControllerRest {
 
     @UserListReadPermission
     @GetMapping(produces = "application/json")
-    public List<UserRest> getAllUsers() {
+    public ResponseEntity<List<UserRest>> getAllUsers() {
         List<UserDto> userDtoList = userService.findUsers();
-        return userDtoList.stream()
+        List<UserRest> foundUsers = userDtoList.stream()
                 .map(userDto -> modelMapper.map(userDto, UserRest.class))
                 .collect(Collectors.toList());
+
+        return new ResponseEntity<>(foundUsers, HttpStatus.OK);
     }
 
     @UserReadPermission
     @GetMapping(path = "/{userId}",
             produces = "application/json")
-    public UserRest getUser(@PathVariable String userId) {
+    public ResponseEntity<UserRest> getUser(@PathVariable String userId) {
         UserDto userDto = userService.findUserByUserId(userId);
-        return modelMapper.map(userDto, UserRest.class);
+        UserRest foundUser = modelMapper.map(userDto, UserRest.class);
+
+        return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }
 
     @UserListReadPermission
     @GetMapping(path = "/roles",
             produces = "application/json")
-    public List<RoleRest> getAllRoles() {
+    public ResponseEntity<List<RoleRest>> getAllRoles() {
         List<RoleDto> roleDtoList = roleService.getRoles();
-        return roleDtoList.stream()
+        List<RoleRest> foundRoles = roleDtoList.stream()
                 .map(roleDto -> modelMapper.map(roleDto, RoleRest.class))
                 .collect(Collectors.toList());
+
+        return new ResponseEntity<>(foundRoles, HttpStatus.OK);
     }
 
     @UserViewProfilePermission
     @GetMapping(path = "/principal",
             produces = "application/json")
-    public UserRest AuthenticateUser(Principal principal) {
+    public ResponseEntity<UserRest> AuthenticateUser(Principal principal) {
         UserDto userDto = userService.findUserByName(principal.getName());
-        return modelMapper.map(userDto, UserRest.class);
+        UserRest foundUser = modelMapper.map(userDto, UserRest.class);
+
+        return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }
 
     @UserUpdatePermission
@@ -78,7 +86,7 @@ public class UserControllerRest {
             consumes = "application/json",
             produces = "application/json")
     public ResponseEntity<String> updateUser(@PathVariable String userId,
-                                        @RequestBody UserDetailsRequestModel userDetails) {
+                                             @RequestBody UserDetailsRequestModel userDetails) {
         UserDto convertedUser = modelMapper.map(userDetails, UserDto.class);
         UserDto userForUpdate = userService.updateUser(userId, convertedUser);
         return ResponseEntity.accepted().build();
