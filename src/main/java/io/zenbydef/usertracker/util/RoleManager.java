@@ -37,6 +37,7 @@ public class RoleManager {
     private List<RoleDto> getRoleDistinctRolesForUserDto(Collection<RoleDto> roles) {
         return roles.stream()
                 .map(roleDto -> getDistinctRole(roleDto.getNameOfRole()))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
@@ -47,6 +48,6 @@ public class RoleManager {
                 roleToFind = role;
             }
         }
-        return Objects.requireNonNull(roleToFind);
+        return roleToFind;
     }
 }

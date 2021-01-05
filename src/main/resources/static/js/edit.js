@@ -25,7 +25,14 @@ function editUser(userId) {
     const editUserURL = `rest/users/` + userId
     const requestOptions = createRequestOptions();
 
-    $('#editUserRole').attr('value', [])
+    $('#editUserRole').attr('value', [
+        // {
+        //     nameOfRole: "USER"
+        // },
+        // {
+        //     nameOfRole: "ADMIN"
+        // }
+    ])
 
     fetch(editUserURL, requestOptions)
         .then(function () {
@@ -50,6 +57,10 @@ function createRequestOptions() {
             roles: [
                 {
                     nameOfRole: $('#editUserRole').val()[0]
+                }
+                ,
+                {
+                    nameOfRole: $('#editUserRole').val()[1]
                 }
             ]
         }),
