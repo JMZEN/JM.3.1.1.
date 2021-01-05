@@ -35,6 +35,10 @@ function createPOSTRequestBody() {
                 {
                     nameOfRole: $('#newUserRole').val()[0]
                 }
+                ,
+                {
+                    nameOfRole: $('#newUserRole').val()[1]
+                }
             ]
         }),
         headers: {'Content-type': 'application/json; charset=UTF-8'},
