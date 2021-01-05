@@ -64,6 +64,6 @@ public class UserRest implements Serializable {
     public String getRolesAsString() {
         return roles != null ? roles.stream()
                 .map(RoleRest::getNameOfRole)
-                .collect(Collectors.joining()) : null;
+                .collect(Collectors.joining(" ")) : null;
     }
 }
