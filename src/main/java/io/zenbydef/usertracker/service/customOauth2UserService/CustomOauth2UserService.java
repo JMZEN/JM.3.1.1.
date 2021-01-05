@@ -1,17 +1,12 @@
-package io.zenbydef.usertracker.service;
+package io.zenbydef.usertracker.service.customOauth2UserService;
 
 import io.zenbydef.usertracker.io.entities.RoleEntity;
 import io.zenbydef.usertracker.io.entities.UserEntity;
 import io.zenbydef.usertracker.io.repositories.RoleDtoRepository;
 import io.zenbydef.usertracker.io.repositories.UserDtoRepository;
-import io.zenbydef.usertracker.io.shared.RoleDto;
+import io.zenbydef.usertracker.security.models.CustomOAuth2User;
 import io.zenbydef.usertracker.util.IdGenerator;
-import io.zenbydef.usertracker.util.RoleManager;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -22,25 +17,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class CustomOauth2UserService extends DefaultOAuth2UserService {
     private final UserDtoRepository userDtoRepository;
     private final RoleDtoRepository roleDtoRepository;
-    private final RoleManager roleManager;
     private IdGenerator idGenerator;
-    private static final ModelMapper modelMapper = new ModelMapper();
-
-//    private PasswordEncoder encoder;
 
     public CustomOauth2UserService(UserDtoRepository userDtoRepository,
-                                   RoleDtoRepository roleDtoRepository,
-                                   RoleManager roleManager) {
+                                   RoleDtoRepository roleDtoRepository) {
         this.userDtoRepository = userDtoRepository;
         this.roleDtoRepository = roleDtoRepository;
-        this.roleManager = roleManager;
     }
 
     @Autowired
@@ -48,14 +36,10 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         this.idGenerator = idGenerator;
     }
 
-//    @Autowired
-//    public void setEncoder(PasswordEncoder encoder) {
-//        this.encoder = encoder;
-//    }
-
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User user = super.loadUser(userRequest);
+
         UserEntity userEntity = processOAuth2User(user.getAttributes());
 
         CustomOAuth2User customOAuth2User = new CustomOAuth2User();
@@ -88,13 +72,15 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         return userAttributesMap;
     }
 
-    private void updateExistingUser(Map<String, String> attributes) {
+    private UserEntity registerNewUser(Map<String, String> userAttributesMap) {
+        RoleEntity userRoleEntity = roleDtoRepository.findAll().get(0);
+        List<RoleEntity> roleEntityList = List.of(userRoleEntity);
+
+        UserEntity userForCreation = setNewUserEntity(userAttributesMap, roleEntityList);
+        return userDtoRepository.save(userForCreation);
     }
 
-    private UserEntity registerNewUser(Map<String, String> userAttributesMap) {
-        RoleEntity roleEntity1 = roleDtoRepository.findAll().get(0);
-        List<RoleEntity> roleEntityList = List.of(roleEntity1);
-
+    private UserEntity setNewUserEntity(Map<String, String> userAttributesMap, List<RoleEntity> roleEntityList) {
         UserEntity userForCreation = new UserEntity();
         userForCreation.setUserId(idGenerator.generateUserId(6));
         userForCreation.setEmail(userAttributesMap.get("email"));
@@ -103,7 +89,6 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         userForCreation.setLastName(userAttributesMap.get("lastName"));
         userForCreation.setAge(0);
         userForCreation.setRoles(roleEntityList);
-
-        return userDtoRepository.save(userForCreation);
+        return userForCreation;
     }
 }

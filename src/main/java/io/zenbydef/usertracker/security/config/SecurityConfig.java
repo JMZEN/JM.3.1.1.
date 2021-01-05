@@ -1,6 +1,6 @@
 package io.zenbydef.usertracker.security.config;
 
-import io.zenbydef.usertracker.service.CustomOauth2UserService;
+import io.zenbydef.usertracker.service.customOauth2UserService.CustomOauth2UserService;
 import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
