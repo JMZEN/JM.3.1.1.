@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -35,19 +36,26 @@ public class RoleManager {
     }
 
     private List<RoleDto> getRoleDistinctRolesForUserDto(Collection<RoleDto> roles) {
-        return roles.stream()
-                .map(roleDto -> getDistinctRole(roleDto.getNameOfRole()))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+        List<RoleDto> list = new ArrayList<>();
+        for (RoleDto roleDto : roles) {
+            RoleDto distinctRole = getDistinctRole(roleDto.getNameOfRole());
+            if (distinctRole.getNameOfRole() != null) {
+                list.add(distinctRole);
+            }
+        }
+        return list;
     }
 
     private RoleDto getDistinctRole(String s) {
-        RoleDto roleToFind = null;
-        for (RoleDto role : roleDtos) {
-            if (s.equalsIgnoreCase(role.getNameOfRole())) {
-                roleToFind = role;
-            }
-        }
-        return roleToFind;
+        return roleDtos.stream()
+                .filter(roleDto -> roleDto.getNameOfRole().equalsIgnoreCase(s))
+                .findFirst()
+                .orElse(new RoleDto());
     }
 }
+
+//        for (RoleDto role : roleDtos) {
+//            if (s.equalsIgnoreCase(role.getNameOfRole())) {
+//                roleToFind = role;
+//            }
+//        }
