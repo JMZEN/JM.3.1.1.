@@ -48,6 +48,23 @@ public class UserEntity implements Serializable {
     @Transient
     private List<GrantedAuthority> authorities;
 
+    public UserEntity() {
+    }
+
+    public UserEntity(String email,
+                      String encryptedPassword,
+                      String firstName,
+                      String lastName,
+                      int age,
+                      List<RoleEntity> roles) {
+        this.email = email;
+        this.encryptedPassword = encryptedPassword;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.roles = roles;
+    }
+
     public List<GrantedAuthority> getAuthorities() {
         return this.roles.stream()
                 .map(RoleEntity::getPrivileges)

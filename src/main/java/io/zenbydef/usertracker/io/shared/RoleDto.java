@@ -12,6 +12,13 @@ public class RoleDto implements Serializable {
     private List<UserDto> users;
     private List<Privilege> privileges;
 
+    public RoleDto() {
+    }
+
+    public RoleDto(String nameOfRole) {
+        this.nameOfRole = nameOfRole;
+    }
+
     public Long getId() {
         return id;
     }
