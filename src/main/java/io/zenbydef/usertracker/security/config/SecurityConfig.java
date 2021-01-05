@@ -59,7 +59,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.oauth2Login()
                 .loginPage("/login")
                 .userInfoEndpoint()
-                .userService(oauth2UserService);
+                .userService(oauth2UserService)
+                .and()
+                .successHandler(successHandler);;
 
         http.authorizeRequests()
                 .anyRequest().authenticated()

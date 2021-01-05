@@ -42,13 +42,17 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
 
         UserEntity userEntity = processOAuth2User(user.getAttributes());
 
+        CustomOAuth2User customOAuth2User = createCustomOAuth2User(user, userEntity);
+        return customOAuth2User;
+    }
+
+    private CustomOAuth2User createCustomOAuth2User(OAuth2User user, UserEntity userEntity) {
         CustomOAuth2User customOAuth2User = new CustomOAuth2User();
         customOAuth2User.setName(userEntity.getEmail());
         customOAuth2User.setAuthorities(userEntity.getAuthorities());
         customOAuth2User.setAttributes(user.getAttributes());
         return customOAuth2User;
     }
-
 
     private UserEntity processOAuth2User(Map<String, Object> userAttributes) {
         Map<String, String> userAttributesMap =
@@ -62,7 +66,6 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
 
         return foundUser;
     }
-
 
     private Map<String, String> getUserAttributesAsStringMap(Map<String, Object> userAttributes) {
         Map<String, String> userAttributesMap = new HashMap<>();
