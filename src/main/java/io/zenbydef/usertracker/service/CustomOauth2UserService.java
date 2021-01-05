@@ -55,19 +55,12 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        RoleEntity roleEntity1 = roleDtoRepository.findAll().get(1);
-        List<GrantedAuthority> authorities = roleEntity1.getPrivileges()
-                .stream()
-                .map(privilege -> modelMapper.map(privilege, GrantedAuthority.class))
-                .collect(Collectors.toList());
-
-
         OAuth2User user = super.loadUser(userRequest);
         UserEntity userEntity = processOAuth2User(user.getAttributes());
 
         CustomOAuth2User customOAuth2User = new CustomOAuth2User();
         customOAuth2User.setName(userEntity.getEmail());
-        customOAuth2User.setAuthorities(authorities);
+        customOAuth2User.setAuthorities(userEntity.getAuthorities());
         customOAuth2User.setAttributes(user.getAttributes());
         return customOAuth2User;
     }
