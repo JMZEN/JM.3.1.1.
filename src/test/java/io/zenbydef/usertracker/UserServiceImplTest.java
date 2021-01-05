@@ -6,7 +6,7 @@ import io.zenbydef.usertracker.io.entities.UserEntity;
 import io.zenbydef.usertracker.io.repositories.UserDtoRepository;
 import io.zenbydef.usertracker.io.shared.RoleDto;
 import io.zenbydef.usertracker.io.shared.UserDto;
-import io.zenbydef.usertracker.service.userdtoservice.UserDtoServiceImpl;
+import io.zenbydef.usertracker.service.userservice.UserServiceImpl;
 import io.zenbydef.usertracker.util.IdGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,9 +24,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("UserDtoServiceImpl must")
-public class UserDtoServiceImplTest {
+public class UserServiceImplTest {
     @InjectMocks
-    UserDtoServiceImpl userDtoService;
+    UserServiceImpl userDtoService;
 
     @Mock
     UserDtoRepository userDtoRepository;

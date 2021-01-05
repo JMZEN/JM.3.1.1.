@@ -1,4 +1,4 @@
-package io.zenbydef.usertracker.service.customOauth2UserService;
+package io.zenbydef.usertracker.service.customoauth2userservice;
 
 import io.zenbydef.usertracker.io.entities.RoleEntity;
 import io.zenbydef.usertracker.io.entities.UserEntity;

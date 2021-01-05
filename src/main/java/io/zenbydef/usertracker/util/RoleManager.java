@@ -2,7 +2,7 @@ package io.zenbydef.usertracker.util;
 
 import io.zenbydef.usertracker.io.entities.RoleEntity;
 import io.zenbydef.usertracker.io.shared.RoleDto;
-import io.zenbydef.usertracker.service.roledtoservice.RoleDtoService;
+import io.zenbydef.usertracker.service.roleservice.RoleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,16 +15,16 @@ import java.util.stream.Collectors;
 @Component
 public class RoleManager {
     private List<RoleDto> roleDtos;
-    private final RoleDtoService roleDtoService;
+    private final RoleService roleService;
     private static final ModelMapper modelMapper = new ModelMapper();
 
-    public RoleManager(RoleDtoService roleDtoService) {
-        this.roleDtoService = roleDtoService;
+    public RoleManager(RoleService roleService) {
+        this.roleService = roleService;
     }
 
     @Autowired
     private void setRolesSet() {
-        this.roleDtos = roleDtoService.getRoles();
+        this.roleDtos = roleService.getRoles();
     }
 
     public List<RoleEntity> convertRoleDtoToRoleEntity(Collection<RoleDto> roles) {

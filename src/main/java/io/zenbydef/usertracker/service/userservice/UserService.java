@@ -1,12 +1,11 @@
-package io.zenbydef.usertracker.service.userdtoservice;
+package io.zenbydef.usertracker.service.userservice;
 
 import io.zenbydef.usertracker.io.shared.UserDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 
 import java.util.List;
 
-public interface UserDtoService extends UserDetailsService {
+public interface UserService extends UserDetailsService {
     UserDto createUser(UserDto user);
 
     UserDto findUserByName(String userName);

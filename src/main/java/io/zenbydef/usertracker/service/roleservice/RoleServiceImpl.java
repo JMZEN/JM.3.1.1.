@@ -1,4 +1,4 @@
-package io.zenbydef.usertracker.service.roledtoservice;
+package io.zenbydef.usertracker.service.roleservice;
 
 import io.zenbydef.usertracker.io.entities.RoleEntity;
 import io.zenbydef.usertracker.io.repositories.RoleDtoRepository;
@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class RoleDtoServiceImpl implements RoleDtoService {
+public class RoleServiceImpl implements RoleService {
     private final RoleDtoRepository roleDtoRepository;
     private static final ModelMapper modelMapper = new ModelMapper();
 
-    public RoleDtoServiceImpl(RoleDtoRepository roleDtoRepository) {
+    public RoleServiceImpl(RoleDtoRepository roleDtoRepository) {
         this.roleDtoRepository = roleDtoRepository;
     }
 

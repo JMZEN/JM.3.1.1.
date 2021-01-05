@@ -1,4 +1,4 @@
-package io.zenbydef.usertracker.service.userdtoservice;
+package io.zenbydef.usertracker.service.userservice;
 
 import io.zenbydef.usertracker.io.entities.UserEntity;
 import io.zenbydef.usertracker.io.repositories.UserDtoRepository;
@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserDtoServiceImpl implements UserDtoService {
+public class UserServiceImpl implements UserService {
     private final UserDtoRepository userDtoRepository;
     private final RoleManager roleManager;
     private final IdGenerator idGenerator;
     private final PasswordEncoder encoder;
     private static final ModelMapper modelMapper = new ModelMapper();
 
-    public UserDtoServiceImpl(UserDtoRepository userDtoRepository,
-                              RoleManager roleManager,
-                              IdGenerator idGenerator,
-                              PasswordEncoder encoder) {
+    public UserServiceImpl(UserDtoRepository userDtoRepository,
+                           RoleManager roleManager,
+                           IdGenerator idGenerator,
+                           PasswordEncoder encoder) {
         this.userDtoRepository = userDtoRepository;
         this.roleManager = roleManager;
         this.idGenerator = idGenerator;

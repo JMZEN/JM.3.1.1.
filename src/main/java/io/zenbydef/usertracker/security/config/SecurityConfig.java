@@ -1,7 +1,7 @@
 package io.zenbydef.usertracker.security.config;
 
-import io.zenbydef.usertracker.service.customOauth2UserService.CustomOauth2UserService;
-import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
+import io.zenbydef.usertracker.service.customoauth2userservice.CustomOauth2UserService;
+import io.zenbydef.usertracker.service.userservice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private UserDtoService userDtoService;
+    private UserService userService;
     private final CustomOauth2UserService oauth2UserService;
     private final AuthenticationSuccessHandler successHandler;
 
@@ -29,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void setUserDtoService(UserDtoService userDtoService) {
-        this.userDtoService = userDtoService;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Bean
@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDtoService);
+        daoAuthenticationProvider.setUserDetailsService(userService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }
@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint()
                 .userService(oauth2UserService)
                 .and()
-                .successHandler(successHandler);;
+                .successHandler(successHandler);
 
         http.authorizeRequests()
                 .anyRequest().authenticated()

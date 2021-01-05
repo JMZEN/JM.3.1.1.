@@ -3,16 +3,14 @@ package io.zenbydef.usertracker.ui.controllers;
 import io.zenbydef.usertracker.io.shared.RoleDto;
 import io.zenbydef.usertracker.io.shared.UserDto;
 import io.zenbydef.usertracker.security.annotations.*;
-import io.zenbydef.usertracker.service.roledtoservice.RoleDtoService;
-import io.zenbydef.usertracker.service.userdtoservice.UserDtoService;
+import io.zenbydef.usertracker.service.roleservice.RoleService;
+import io.zenbydef.usertracker.service.userservice.UserService;
 import io.zenbydef.usertracker.ui.models.request.operations.UserDetailsRequestModel;
 import io.zenbydef.usertracker.ui.models.response.RoleRest;
 import io.zenbydef.usertracker.ui.models.response.UserRest;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -22,13 +20,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/rest/users")
 public class UserControllerRest {
-    private final UserDtoService userDtoService;
-    private final RoleDtoService roleDtoService;
+    private final UserService userService;
+    private final RoleService roleService;
     private static final ModelMapper modelMapper = new ModelMapper();
 
-    public UserControllerRest(UserDtoService userDtoService, RoleDtoService roleDtoService) {
-        this.userDtoService = userDtoService;
-        this.roleDtoService = roleDtoService;
+    public UserControllerRest(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
     }
 
     @UserCreatePermission
@@ -36,14 +34,14 @@ public class UserControllerRest {
             produces = "application/json")
     public ResponseEntity<String> createUser(@RequestBody UserDetailsRequestModel requestModel) {
         UserDto convertedUser = modelMapper.map(requestModel, UserDto.class);
-        UserDto createdUser = userDtoService.createUser(convertedUser);
+        UserDto createdUser = userService.createUser(convertedUser);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @UserListReadPermission
     @GetMapping(produces = "application/json")
     public List<UserRest> getAllUsers() {
-        List<UserDto> userDtoList = userDtoService.findUsers();
+        List<UserDto> userDtoList = userService.findUsers();
         return userDtoList.stream()
                 .map(userDto -> modelMapper.map(userDto, UserRest.class))
                 .collect(Collectors.toList());
@@ -53,7 +51,7 @@ public class UserControllerRest {
     @GetMapping(path = "/{userId}",
             produces = "application/json")
     public UserRest getUser(@PathVariable String userId) {
-        UserDto userDto = userDtoService.findUserByUserId(userId);
+        UserDto userDto = userService.findUserByUserId(userId);
         return modelMapper.map(userDto, UserRest.class);
     }
 
@@ -61,7 +59,7 @@ public class UserControllerRest {
     @GetMapping(path = "/roles",
             produces = "application/json")
     public List<RoleRest> getAllRoles() {
-        List<RoleDto> roleDtoList = roleDtoService.getRoles();
+        List<RoleDto> roleDtoList = roleService.getRoles();
         return roleDtoList.stream()
                 .map(roleDto -> modelMapper.map(roleDto, RoleRest.class))
                 .collect(Collectors.toList());
@@ -71,7 +69,7 @@ public class UserControllerRest {
     @GetMapping(path = "/principal",
             produces = "application/json")
     public UserRest AuthenticateUser(Principal principal) {
-        UserDto userDto = userDtoService.findUserByName(principal.getName());
+        UserDto userDto = userService.findUserByName(principal.getName());
         return modelMapper.map(userDto, UserRest.class);
     }
 
@@ -82,7 +80,7 @@ public class UserControllerRest {
     public ResponseEntity<String> updateUser(@PathVariable String userId,
                                         @RequestBody UserDetailsRequestModel userDetails) {
         UserDto convertedUser = modelMapper.map(userDetails, UserDto.class);
-        UserDto userForUpdate = userDtoService.updateUser(userId, convertedUser);
+        UserDto userForUpdate = userService.updateUser(userId, convertedUser);
         return ResponseEntity.accepted().build();
     }
 
@@ -90,7 +88,7 @@ public class UserControllerRest {
     @DeleteMapping(path = "/{userId}",
             produces = "application/json")
     public ResponseEntity<String> deleteUser(@PathVariable String userId) {
-        userDtoService.deleteUser(userId);
+        userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
 }
