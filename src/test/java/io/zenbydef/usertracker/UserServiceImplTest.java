@@ -3,7 +3,7 @@ package io.zenbydef.usertracker;
 import io.zenbydef.usertracker.io.entities.Privilege;
 import io.zenbydef.usertracker.io.entities.RoleEntity;
 import io.zenbydef.usertracker.io.entities.UserEntity;
-import io.zenbydef.usertracker.io.repositories.UserDtoRepository;
+import io.zenbydef.usertracker.io.repositories.UserRepository;
 import io.zenbydef.usertracker.io.shared.RoleDto;
 import io.zenbydef.usertracker.io.shared.UserDto;
 import io.zenbydef.usertracker.service.userservice.UserServiceImpl;
@@ -29,7 +29,7 @@ public class UserServiceImplTest {
     UserServiceImpl userDtoService;
 
     @Mock
-    UserDtoRepository userDtoRepository;
+    UserRepository userRepository;
 
     @Mock
     IdGenerator idGenerator;
@@ -47,10 +47,10 @@ public class UserServiceImplTest {
     @Test
     @DisplayName("create User")
     final void testCreateUser() {
-        when(userDtoRepository.findUserByEmail(anyString())).thenReturn(null);
+        when(userRepository.findUserByEmail(anyString())).thenReturn(null);
         when(idGenerator.generateUserId(anyInt())).thenReturn(USER_ID_STRING);
         when(encoder.encode(null)).thenReturn(ENCRYPTED_PASSWORD);
-        when(userDtoRepository.save(any(UserEntity.class))).thenReturn(USER_ENTITY);
+        when(userRepository.save(any(UserEntity.class))).thenReturn(USER_ENTITY);
 
         UserDto userDto = userDtoService.createUser(getDtoUsers().get(0));
         assertNotNull(userDto);
@@ -59,14 +59,14 @@ public class UserServiceImplTest {
     @Test
     @DisplayName("throw exc if user already exists")
     final void testCreateUser_NullPointerException() {
-        when(userDtoRepository.findUserByEmail(anyString())).thenReturn(null);
+        when(userRepository.findUserByEmail(anyString())).thenReturn(null);
         assertThrows(NullPointerException.class, () -> userDtoService.createUser(getDtoUsers().get(0)));
     }
 
     @Test
     @DisplayName("find User by username")
     final void testFindUserByName_basic() {
-        when(userDtoRepository.findUserByEmail(anyString())).thenReturn(USER_ENTITY);
+        when(userRepository.findUserByEmail(anyString())).thenReturn(USER_ENTITY);
         UserDto foundUserDto = userDtoService.findUserByName(USERNAME);
 
         assertNotNull(foundUserDto);
@@ -76,14 +76,14 @@ public class UserServiceImplTest {
     @Test
     @DisplayName("throw exception if User not found")
     final void testFindUserByName_NullPointerException() {
-        when(userDtoRepository.findUserByEmail(anyString())).thenReturn(null);
+        when(userRepository.findUserByEmail(anyString())).thenReturn(null);
         assertThrows(NullPointerException.class, () -> userDtoService.findUserByName(USERNAME));
     }
 
     @Test
     @DisplayName("finds user by userId")
     final void testFindUserByUserId_basic() {
-        when(userDtoRepository.findUserByUserId(anyString())).thenReturn(USER_ENTITY);
+        when(userRepository.findUserByUserId(anyString())).thenReturn(USER_ENTITY);
         UserDto userDto = userDtoService.findUserByUserId(USER_ID_STRING);
 
         assertNotNull(userDto);
@@ -94,14 +94,14 @@ public class UserServiceImplTest {
     @Test
     @DisplayName("throw the exception if User not found by userId")
     final void testFindUserById_NullPointerException() {
-        when(userDtoRepository.findUserByUserId(anyString())).thenReturn(null);
+        when(userRepository.findUserByUserId(anyString())).thenReturn(null);
         assertThrows(NullPointerException.class, () -> userDtoService.findUserByUserId(USER_ID_STRING));
     }
 
     @Test
     @DisplayName("get all Users")
     final void testFindUsers_basic() {
-        when(userDtoRepository.findAll()).thenReturn(USERS);
+        when(userRepository.findAll()).thenReturn(USERS);
 
         List<UserDto> usersFound = userDtoService.findUsers();
         assertNotNull(usersFound);
@@ -113,15 +113,15 @@ public class UserServiceImplTest {
     @Test
     @DisplayName("delete User")
     final void testDeleteUser_basic() {
-        when(userDtoRepository.findUserByUserId(anyString())).thenReturn(USER_ENTITY);
+        when(userRepository.findUserByUserId(anyString())).thenReturn(USER_ENTITY);
         userDtoService.deleteUser(USER_ID_STRING);
-        verify(userDtoRepository).delete(USER_ENTITY);
+        verify(userRepository).delete(USER_ENTITY);
     }
 
     @Test
     @DisplayName("throw the exception if User not found for deletion")
     final void testDeleteUser_NullPointerException() {
-        when(userDtoRepository.findUserByUserId(anyString())).thenReturn(null);
+        when(userRepository.findUserByUserId(anyString())).thenReturn(null);
         assertThrows(NullPointerException.class, () -> userDtoService.findUserByUserId(USER_ID_STRING));
     }
 

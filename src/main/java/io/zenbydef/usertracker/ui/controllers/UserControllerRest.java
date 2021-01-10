@@ -89,7 +89,7 @@ public class UserControllerRest {
                                              @RequestBody UserDetailsRequestModel userDetails) {
         UserDto convertedUser = modelMapper.map(userDetails, UserDto.class);
         UserDto userForUpdate = userService.updateUser(userId, convertedUser);
-        return ResponseEntity.accepted().build();
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @UserDeletePermission
@@ -97,6 +97,6 @@ public class UserControllerRest {
             produces = "application/json")
     public ResponseEntity<String> deleteUser(@PathVariable String userId) {
         userService.deleteUser(userId);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

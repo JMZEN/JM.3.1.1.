@@ -1,7 +1,7 @@
 package io.zenbydef.usertracker.service.userservice;
 
 import io.zenbydef.usertracker.io.entities.UserEntity;
-import io.zenbydef.usertracker.io.repositories.UserDtoRepository;
+import io.zenbydef.usertracker.io.repositories.UserRepository;
 import io.zenbydef.usertracker.io.shared.UserDto;
 import io.zenbydef.usertracker.util.IdGenerator;
 import io.zenbydef.usertracker.util.RoleManager;
@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -19,25 +20,26 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-    private final UserDtoRepository userDtoRepository;
+    private final UserRepository userRepository;
     private final RoleManager roleManager;
     private final IdGenerator idGenerator;
     private final PasswordEncoder encoder;
     private static final ModelMapper modelMapper = new ModelMapper();
 
-    public UserServiceImpl(UserDtoRepository userDtoRepository,
+    public UserServiceImpl(UserRepository userRepository,
                            RoleManager roleManager,
                            IdGenerator idGenerator,
                            PasswordEncoder encoder) {
-        this.userDtoRepository = userDtoRepository;
+        this.userRepository = userRepository;
         this.roleManager = roleManager;
         this.idGenerator = idGenerator;
         this.encoder = encoder;
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public UserDto createUser(UserDto user) {
-        if (userDtoRepository.findUserByEmail(user.getEmail()) != null) {
+        if (userRepository.findUserByEmail(user.getEmail()) != null) {
             throw new RuntimeException("Record already exists");
         }
 
@@ -46,13 +48,13 @@ public class UserServiceImpl implements UserService {
         userEntityForSave.setEncryptedPassword(encoder.encode(user.getPassword()));
         userEntityForSave.setRoles(roleManager.convertRoleDtoToRoleEntity(user.getRoles()));
 
-        UserEntity userEntitySaved = userDtoRepository.save(userEntityForSave);
+        UserEntity userEntitySaved = userRepository.save(userEntityForSave);
         return modelMapper.map(userEntitySaved, UserDto.class);
     }
 
     @Override
     public UserDto findUserByName(String userName) {
-        UserEntity foundUserEntity = userDtoRepository.findUserByEmail(userName);
+        UserEntity foundUserEntity = userRepository.findUserByEmail(userName);
         if (foundUserEntity == null) {
             throw new NullPointerException(String.format("User with username %s not found", userName));
         }
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findUserByUserId(String userId) {
-        UserEntity foundUserEntity = userDtoRepository.findUserByUserId(userId);
+        UserEntity foundUserEntity = userRepository.findUserByUserId(userId);
         if (foundUserEntity == null) {
             throw new NullPointerException(String.format("User with userId %s not found", userId));
         }
@@ -70,22 +72,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findUsers() {
-        List<UserEntity> foundUserEntities = userDtoRepository.findAll();
+        List<UserEntity> foundUserEntities = userRepository.findAll();
         return foundUserEntities.stream()
                 .map(userEntity -> modelMapper.map(userEntity, UserDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public UserDto updateUser(String userId, UserDto userDto) {
-        UserEntity foundUserEntityForUpdate = userDtoRepository.findUserByUserId(userId);
+        UserEntity foundUserEntityForUpdate = userRepository.findUserByUserId(userId);
         uniqueUserCheck(foundUserEntityForUpdate);
         createNewEncryptedPassword(userDto, foundUserEntityForUpdate);
         foundUserEntityForUpdate.setFirstName(userDto.getFirstName());
         foundUserEntityForUpdate.setLastName(userDto.getLastName());
         foundUserEntityForUpdate.setAge(userDto.getAge());
         checkForRolesUpdate(userDto, foundUserEntityForUpdate);
-        UserEntity savedUser = userDtoRepository.save(foundUserEntityForUpdate);
+        UserEntity savedUser = userRepository.save(foundUserEntityForUpdate);
         return modelMapper.map(savedUser, UserDto.class);
     }
 
@@ -109,11 +112,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(String userId) {
-        UserEntity foundUserEntity = userDtoRepository.findUserByUserId(userId);
+        UserEntity foundUserEntity = userRepository.findUserByUserId(userId);
         if (foundUserEntity == null) {
             throw new RuntimeException(String.format("User with id %s not found for deletion", userId));
         }
-        userDtoRepository.delete(foundUserEntity);
+        userRepository.delete(foundUserEntity);
     }
 
     @Override

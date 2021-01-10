@@ -2,8 +2,8 @@ package io.zenbydef.usertracker.service.customoauth2userservice;
 
 import io.zenbydef.usertracker.io.entities.RoleEntity;
 import io.zenbydef.usertracker.io.entities.UserEntity;
-import io.zenbydef.usertracker.io.repositories.RoleDtoRepository;
-import io.zenbydef.usertracker.io.repositories.UserDtoRepository;
+import io.zenbydef.usertracker.io.repositories.RoleRepository;
+import io.zenbydef.usertracker.io.repositories.UserRepository;
 import io.zenbydef.usertracker.security.models.CustomOAuth2User;
 import io.zenbydef.usertracker.util.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ import java.util.Map;
 @Service
 @Transactional
 public class CustomOauth2UserService extends DefaultOAuth2UserService {
-    private final UserDtoRepository userDtoRepository;
-    private final RoleDtoRepository roleDtoRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private IdGenerator idGenerator;
 
-    public CustomOauth2UserService(UserDtoRepository userDtoRepository,
-                                   RoleDtoRepository roleDtoRepository) {
-        this.userDtoRepository = userDtoRepository;
-        this.roleDtoRepository = roleDtoRepository;
+    public CustomOauth2UserService(UserRepository userRepository,
+                                   RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Autowired
@@ -59,7 +59,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
                 getUserAttributesAsStringMap(userAttributes);
 
         UserEntity foundUser =
-                userDtoRepository.findUserByEmail(userAttributesMap.get("email"));
+                userRepository.findUserByEmail(userAttributesMap.get("email"));
         if (foundUser == null) {
             return registerNewUser(userAttributesMap);
         }
@@ -76,11 +76,11 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
     }
 
     private UserEntity registerNewUser(Map<String, String> userAttributesMap) {
-        RoleEntity userRoleEntity = roleDtoRepository.findAll().get(0);
+        RoleEntity userRoleEntity = roleRepository.findAll().get(0);
         List<RoleEntity> roleEntityList = List.of(userRoleEntity);
 
         UserEntity userForCreation = setNewUserEntity(userAttributesMap, roleEntityList);
-        return userDtoRepository.save(userForCreation);
+        return userRepository.save(userForCreation);
     }
 
     private UserEntity setNewUserEntity(Map<String, String> userAttributesMap, List<RoleEntity> roleEntityList) {
