@@ -20,10 +20,13 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
                                         Authentication authentication) throws IOException {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         List<GrantedAuthority> authorityList = new ArrayList<>(authorities);
+
         for (GrantedAuthority grantedAuthority : authorityList) {
-            httpServletResponse.sendRedirect(grantedAuthority.getAuthority()
-                    .equals("user.view.profile") ? "/user" : "/admin");
-            break;
+            if (grantedAuthority.getAuthority().equals("user.list.read")) {
+                httpServletResponse.sendRedirect("/admin");
+                return;
+            }
         }
+        httpServletResponse.sendRedirect("/user");
     }
 }

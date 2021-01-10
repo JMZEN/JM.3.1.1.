@@ -1,7 +1,5 @@
 package io.zenbydef.usertracker.io.entities;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -18,7 +16,6 @@ public class UserEntity implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @NotFound(action = NotFoundAction.IGNORE)
     private Long id;
 
     @Column(nullable = false, unique = true)
